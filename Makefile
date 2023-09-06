@@ -6,7 +6,7 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/08/30 12:52:59 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/09/06 20:01:08 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) #-march=native #-fsanitize=address
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE)
 OFLAGS			= -lreadline
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
