@@ -6,12 +6,17 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/09/12 16:14:52 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:13:33 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+
+void	leaks(void)
+{
+	system("leaks -q minishell");
+}
 
 int	main(void)
 {
@@ -25,7 +30,7 @@ int	main(void)
 	while (1)
 	{
 		getcwd(buff, MAXPATHLEN);
-		printf("%s >", buff);
+		printf("MShell:%s >", buff);
 		linea = readline(" ");
 		if (!linea)
 		{
@@ -38,7 +43,9 @@ int	main(void)
 			break ;
 		new_line = parse(linea);
 		printf("%s\n", new_line);
+		free(linea);
 	}
+	free(linea);
 	free(buff);
 	return (0);
 }
