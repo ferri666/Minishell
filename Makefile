@@ -6,13 +6,13 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/09/06 20:01:08 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/09/12 16:03:23 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= test
+SRC_FILES		= test parse
 
 SRC_DIR			= srcs/
 OBJ_DIR			= objs/

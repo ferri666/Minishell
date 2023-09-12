@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/09/06 19:25:59 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/09/12 16:14:52 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 int	main(void)
 {
 	char	*linea;
+	char	*new_line;
 	char	*buff;
 
 	buff = malloc(sizeof(char) * MAXPATHLEN);
@@ -23,18 +24,20 @@ int	main(void)
 		return (0);
 	while (1)
 	{
-
+		getcwd(buff, MAXPATHLEN);
+		printf("%s >", buff);
 		linea = readline(" ");
 		if (!linea)
 		{
 			free(buff);
 			exit(0);
 		}
+		add_history(linea);
 		if (ft_strncmp(linea, "q", 1) == 0 || ft_strncmp(linea, "Q", 1) == 0
 			|| ft_strncmp(linea, "exit", 4) == 0)
 			break ;
-		add_history(linea);
-		printf("%s\n", linea);
+		new_line = parse(linea);
+		printf("%s\n", new_line);
 	}
 	free(buff);
 	return (0);
