@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/09/12 17:13:33 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:10:36 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	main(void)
 		return (0);
 	while (1)
 	{
-		getcwd(buff, MAXPATHLEN);
 		printf("MShell:%s >", buff);
 		linea = readline(" ");
 		if (!linea)
