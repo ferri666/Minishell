@@ -6,7 +6,7 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 19:24:41 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/03/27 17:56:55 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/09/13 18:24:17 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,12 @@ all:			$(NAME)
 
 clean:
 				@$(RM) $(OBJS)
-				@echo "Clean boys!"
+				@echo "Clean library!"
 				
 
 fclean:			clean
 				@$(RM) $(NAME)
-				@echo "Super clean boys!"
+				@echo "Super clean library!"
 
 re:				fclean $(NAME)
 

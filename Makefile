@@ -6,7 +6,7 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/09/12 16:03:23 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/09/13 18:23:39 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,12 +43,13 @@ $(LIBFT):			$(LIBFT_DIR)
 
 clean:
 	@echo "Clean Boys!"
-	@$(RM) ${OBJ}
-	@${RM} -r ${OBJ_DIR} 
+	@$(RM) ${OBJ} 
+	@${RM} -r ${OBJ_DIR}
+	@cd $(LIBFT_DIR) && make clean
 
 fclean: clean
 	@echo "Super Clean Boys!"
-	@${RM} ${OBJS} ${NAME}
+	@${RM} ${OBJS} ${NAME} ${LIBFT}
 
 re: fclean all
 
