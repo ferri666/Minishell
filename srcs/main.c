@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/09/12 18:10:36 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:43:32 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,33 +18,39 @@ void	leaks(void)
 	system("leaks -q minishell");
 }
 
-int	main(void)
+void	list_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+	if (i == 0)
+		printf("%s\n", "We coudn't find any enviroment. Sorry 🤷");
+}
+
+int	main(int argc, char **argv, char **env)
 {
 	char	*linea;
-	char	*new_line;
-	char	*buff;
 
-	buff = malloc(sizeof(char) * MAXPATHLEN);
-	if (!buff)
-		return (0);
+	atexit(leaks);
+	if (argc != 1)
+		printf ("%s\n", argv[1]);
 	while (1)
 	{
-		printf("MShell:%s >", buff);
-		linea = readline(" ");
-		if (!linea)
-		{
-			free(buff);
-			exit(0);
-		}
-		add_history(linea);
-		if (ft_strncmp(linea, "q", 1) == 0 || ft_strncmp(linea, "Q", 1) == 0
-			|| ft_strncmp(linea, "exit", 4) == 0)
+		linea = readline("MShell >");
+		if (linea)
+			add_history(linea);
+		linea = parse(linea);
+		if (ft_strncmp(linea, "env", 3) == 0)
+			list_env(env);
+		if (ft_strncmp(linea, "exit", 4) == 0)
 			break ;
-		new_line = parse(linea);
-		printf("%s\n", new_line);
 		free(linea);
 	}
 	free(linea);
-	free(buff);
 	return (0);
 }

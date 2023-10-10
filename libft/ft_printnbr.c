@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 12:07:49 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/03/09 16:14:57 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/09/18 15:09:48 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,3 @@ int	ft_printunsign(unsigned int nbr)
 	}
 	return (ret);
 }
-
-/*
-int	main(void)
-{
-	int s1;
-	int s2;
-	
-	s1 = ft_printf("hola\n");
-	s2 = printf("hola\n");
-	ft_printf("%d   vs    %d", s1, s2);
-}
-*/

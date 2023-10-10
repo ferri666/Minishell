@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/29 10:32:55 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/05 16:29:10 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/10/10 12:57:20 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "libft.h"
 
-static void	print_number(int nbr, int fd)
+char	*spaces(char *frase)
 {
-	char	*base;
-	char	num;
-	int		remainder;
-
-	base = "0123456789";
-	if (nbr / 10 != 0)
-		print_number((nbr / 10), fd);
-	remainder = nbr % 10;
-	if (remainder < 0)
-		remainder = -remainder;
-	num = base[remainder];
-	ft_putchar_fd(num, fd);
+	while (is_blank(*frase) && *frase)
+		frase++;
+	return (frase);
 }
 
-void	ft_putnbr_fd(int nbr, int fd)
+int	is_blank(int c)
 {
-	if (nbr < 0)
-		ft_putchar_fd('-', fd);
-	print_number(nbr, fd);
+	if (c == 0)
+		return (1);
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (c);
+	return (0);
 }
+/*
+int	main(void)
+{
+	char	*frase = "      hola         ";
+	char	*hello = spaces(frase);
+
+	printf("%s$\n", frase);
+	printf("%s$\n", spaces(hello + 4));
+	printf("%s$\n", hello);
+	printf("%s$\n", frase);
+}
+*/
