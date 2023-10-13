@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/10 13:14:43 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:07:22 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define MINISHELL_H
 # define MAXCMD 50
 # ifndef MAXPATHLEN
-#  define MAXPATHLEN = 1024
+#  define MAXPATHLEN 1024
 # endif
 
 # include <unistd.h>
@@ -22,15 +22,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/param.h>
-
-typedef struct s_line
-{
-	int		quotes;
-	int		redir;
-	int		pipes;
-	char	**block;
-
-}	t_dline;
 
 typedef struct s_cmd
 {
@@ -41,9 +32,17 @@ typedef struct s_cmd
 	int		n_arg;
 }	t_cmd;
 
-
+/*  parse.c   */
 char	*parse(char *str);
+char	*closed_quotes(char *str);
+int		count_cmds(char *str);
+char	**commands(char *str, int ncmds);
+
+/*  utils.c   */
 char	*spaces(char *frase);
 int		is_blank(int c);
+void	changeflag(char c, int *flag);
 
+/*   exit.c  */
+void	free_cmds(t_cmd **cmds, int ncmds);
 #endif

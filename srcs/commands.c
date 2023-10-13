@@ -1,48 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/26 20:01:10 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/13 14:59:58 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/10/13 14:50:22 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/10/13 17:39:53 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "libft.h"
+#include "colors.h"
 
-static size_t	wordlen(char const *s, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (*s)
-	{
-		i++;
-		while (*s && *s == c)
-			s++;
-		if (*s == '\0')
-			i--;
-		while (*s && *s != c)
-			s++;
-	}
-	return (i);
-}
-
-static char	**fill_string(char **store, char const *s, char c)
+static char	**fill_array(char **store, char const *s)
 {
 	size_t	len;
 	size_t	i;
+	int		flag;
 
 	i = 0;
+	flag = 0;
 	while (*s)
 	{
-		if (*s != c)
+		if (*s != '|')
 		{
 			len = 0;
-			while (*s && *s != c)
+			while (*s && (flag || *s != '|'))
 			{
+				if ((*s == '\"' || *s == '\''))
+					changeflag(*s, &flag);
 				len++;
 				s++;
 			}
@@ -55,17 +43,15 @@ static char	**fill_string(char **store, char const *s, char c)
 	return (store);
 }
 
-char	**ft_split(char const *s, char c)
+char	**commands(char *str, int ncmds)
 {
 	char	**res;
-	size_t	len_words;
 
-	if (!s)
+	if (!str)
 		return (NULL);
-	len_words = wordlen(s, c);
-	res = malloc(sizeof(char *) * (len_words + 1));
+	res = malloc (sizeof(char *) * (ncmds + 1));
 	if (!res)
 		return (NULL);
-	res = fill_string(res, s, c);
+	res = fill_array(res, str);
 	return (res);
 }

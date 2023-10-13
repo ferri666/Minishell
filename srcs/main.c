@@ -6,12 +6,13 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/10 13:43:32 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:40:01 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include "colors.h"
 
 void	leaks(void)
 {
@@ -29,7 +30,7 @@ void	list_env(char **env)
 		i++;
 	}
 	if (i == 0)
-		printf("%s\n", "We coudn't find any enviroment. Sorry 🤷");
+		printf("%s\n", "We coudn't find any enviroment variables. Sorry 🤷");
 }
 
 int	main(int argc, char **argv, char **env)
@@ -42,9 +43,9 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		linea = readline("MShell >");
+		linea = parse(linea);
 		if (linea)
 			add_history(linea);
-		linea = parse(linea);
 		if (ft_strncmp(linea, "env", 3) == 0)
 			list_env(env);
 		if (ft_strncmp(linea, "exit", 4) == 0)

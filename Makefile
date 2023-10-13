@@ -6,13 +6,13 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/10/10 12:02:31 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/10/13 16:03:03 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= main parse utils
+SRC_FILES		= main parse utils commands exit
 
 SRC_DIR			= srcs/
 OBJ_DIR			= objs/
