@@ -1,0 +1,18 @@
+#LO TÍPICO QUE SALE SIEMPRE
+.DStorage
+.DS_Store
+*.o
+libftprintf.a
+*test*
+libft.a
+objs/
+.vscode
+*.dsYM
+a.out
+
+
+
+
+#ESPECIFICOS DE PROYECTO
+minishell
+#.gitignore
