@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/13 18:56:37 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:44:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cmd	**parsecmd(char *str, int ncmds)
 		cmds[i]->command = ft_strtrim(comands[i], " \n\t");
 		printf("cmd%d:\"%s\"\n", i + 1, cmds[i]->command);
 		if (ft_strlen(cmds[i]->command) == 0)
-			ft_putstr_fd (BRED "MShell: parse error near '|' \n" RESET, 2);
+			ft_error("MShell: parse error near '|' \n");
 		i++;
 	}
 	ft_free_matrix((void **)comands);
@@ -72,11 +72,13 @@ char	*parse(char *str)
 	int		ncmds;
 	char	*ret;
 
+	if (check_errors(str))
+		return (NULL);
 	ncmds = count_cmds(str);
 	if (ncmds < 0)
-		printf (BRED "MShell: parse error 😡 ¡Quotes not closed!\n" RESET);
+		ft_error("MShell: parse error 😡 ¡Quotes not closed!\n");
 	if (ncmds > MAXCMD)
-		printf(BRED "MShell: 👮🛑 Hey par'ner! That's too many commands!\n" RESET);
+		ft_error("MShell: 👮🛑 STOP! That's too many commands!\n");
 	else if (ncmds == 0)
 		return (str);
 	else if (ncmds > 1)

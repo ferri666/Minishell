@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/13 16:07:22 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:45:37 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,10 @@ char	**commands(char *str, int ncmds);
 char	*spaces(char *frase);
 int		is_blank(int c);
 void	changeflag(char c, int *flag);
+void	ft_error(char *str);
+
+/*  errors_parse.c   */
+int		check_errors(char *str);
 
 /*   exit.c  */
 void	free_cmds(t_cmd **cmds, int ncmds);

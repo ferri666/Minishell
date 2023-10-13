@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/13 17:40:05 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/13 19:39:03 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,10 @@ char	*closed_quotes(char *str)
 	else
 		return (str);
 }
-/*
-int	main(void)
-{
-	char	*frase = "      hola         ";
-	char	*hello = spaces(frase);
 
-	printf("%s$\n", frase);
-	printf("%s$\n", spaces(hello + 4));
-	printf("%s$\n", hello);
-	printf("%s$\n", frase);
+void	ft_error(char *str)
+{
+	ft_putstr_fd(BRED, 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(RESET, 2);
 }
-*/
