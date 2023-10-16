@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/13 18:22:24 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/14 16:15:00 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ int	main(int argc, char **argv, char **env)
 		linea = readline("MShell $");
 		linea = parse(linea);
 		if (linea)
+		{
 			add_history(linea);
-		if (ft_strncmp(linea, "env", 3) == 0)
-			list_env(env);
-		if (ft_strncmp(linea, "exit", 4) == 0)
-			break ;
-		free(linea);
+			if (ft_strncmp(linea, "env", 3) == 0)
+				list_env(env);
+			if (ft_strncmp(linea, "exit", 4) == 0)
+				break ;
+			free(linea);
+		}
 	}
 	free(linea);
 	return (0);
