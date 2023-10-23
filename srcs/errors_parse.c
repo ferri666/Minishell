@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 14:45:07 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:48:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,9 @@ int	check_errors(char *str)
 	if (e)
 		return (e);
 	e = check_quotes(str);
+	if (e)
+		return (e);
+	e = check_redirections(str);
 	if (e)
 		return (e);
 	return (e);

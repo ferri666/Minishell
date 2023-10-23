@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/14 16:15:00 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:55:42 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	list_env(char **env)
 int	main(int argc, char **argv, char **env)
 {
 	char	*linea;
+	char	*ret;
 
 	atexit(leaks);
 	if (argc != 1)
@@ -43,17 +44,19 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		linea = readline("MShell $");
-		linea = parse(linea);
-		if (linea)
+		ret = parse(linea);
+		if (ret)
 		{
-			add_history(linea);
-			if (ft_strncmp(linea, "env", 3) == 0)
+			add_history(ret);
+			if (ft_strncmp(ret, "env", 3) == 0)
 				list_env(env);
-			if (ft_strncmp(linea, "exit", 4) == 0)
+			if (ft_strncmp(ret, "exit", 4) == 0)
 				break ;
-			free(linea);
+			free(ret);
 		}
+		free(linea);
 	}
+	free(ret);
 	free(linea);
 	return (0);
 }
