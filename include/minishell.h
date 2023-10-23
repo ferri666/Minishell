@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/19 19:15:25 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:04:17 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ char	*parse(char *str);
 char	*closed_quotes(char *str);
 int		count_cmds(char *str);
 char	**commands(char *str, int ncmds);
+
+/*  parse_utils.c   */
+int		triple_pipe(const char *line);
 
 /*  utils.c   */
 char	*spaces(char *frase);

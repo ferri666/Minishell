@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 14:48:24 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/23 15:03:49 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	check_pipe(const char *line)
 	}
 	return (0);
 }
+
 int	check_redirections(const char *line)
 {
 	while (*line)
@@ -65,14 +66,7 @@ int	check_redirections(const char *line)
 			ft_error("MShell: syntax error '<>'\n");
 			return (1);
 		}
-		if ((*line == '>' && *(line + 1) == '>')
-			&& (*(line + 2) == '>' || *(line + 2) == '<'))
-		{
-			ft_error("MShell: syntax error ;)\n");
-			return (1);
-		}
-		if ((*line == '<' && *(line + 1) == '<')
-			&& (*(line + 2) == '>' || *(line + 2) == '<'))
+		if (triple_pipe(line))
 		{
 			ft_error("MShell: syntax error ;)\n");
 			return (1);

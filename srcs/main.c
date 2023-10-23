@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 14:55:42 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:58:53 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **env)
 		printf ("%s\n", argv[1]);
 	while (1)
 	{
-		linea = readline("MShell $");
+		linea = readline("MShell $~ ");
 		ret = parse(linea);
 		if (ret)
 		{
