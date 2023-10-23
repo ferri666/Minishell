@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_parse.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/19 18:59:37 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/10/23 14:45:07 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_pipe(const char *line)
 {
 	if (line[0] == '|')
 	{
-		ft_error("minishell: syntax error near '|'\n");
+		ft_error("MShell: syntax error near '|'\n");
 		return (1);
 	}
 	if (line[ft_strlen(line) - 1] == '|')
@@ -57,24 +57,24 @@ int	check_redirections(const char *line)
 	{
 		if (*line == '>' && *(line + 1) == '<')
 		{
-			ft_error("minishell: syntax error '><'\n");
+			ft_error("MShell: syntax error '><'\n");
 			return (1);
 		}
 		if (*line == '<' && *(line + 1) == '>')
 		{
-			ft_error("minishell: syntax error '<>'\n");
+			ft_error("MShell: syntax error '<>'\n");
 			return (1);
 		}
 		if ((*line == '>' && *(line + 1) == '>')
 			&& (*(line + 2) == '>' || *(line + 2) == '<'))
 		{
-			ft_error("minishell: syntax error ;)\n");
+			ft_error("MShell: syntax error ;)\n");
 			return (1);
 		}
 		if ((*line == '<' && *(line + 1) == '<')
 			&& (*(line + 2) == '>' || *(line + 2) == '<'))
 		{
-			ft_error("minishell: syntax error ;)\n");
+			ft_error("MShell: syntax error ;)\n");
 			return (1);
 		}
 		line++;
