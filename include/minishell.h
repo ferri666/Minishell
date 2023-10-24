@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/24 14:39:15 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:05:27 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_cmd
 }	t_cmd;
 
 /*  parse.c   */
-char	*parse(char *str);
+t_cmd	**parse(char *str);
 char	*closed_quotes(char *str);
 int		count_cmds(char *str);
 char	**commands(char *str, int ncmds);

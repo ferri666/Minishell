@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/24 14:45:28 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/24 16:04:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,36 +65,22 @@ int	count_cmds(char *str)
 	return (n);
 }
 
-char	*parse(char *str)
+t_cmd	**parse(char *str)
 {
 	t_cmd	**cmd;
 	int		ncmds;
-	char	*ret;
-	char	*inp;
 
-	ret = NULL;
 	if (check_errors(str))
 		return (NULL);
 	ncmds = count_cmds(str);
-	if (ncmds < 0)
-		ft_error("MShell: parse error 😡 ¡Quotes not closed!\n");
 	if (ncmds > MAXCMD)
 		ft_error("MShell: 👮🛑 STOP! That's too many commands!\n");
 	else if (ncmds == 0)
-		return (str);
-	else if (ncmds > 1)
-	{
-		cmd = parsecmd(str, ncmds);
-		free_cmds(cmd, ncmds);
-		ret = ft_strtrim(str, " \n\t");
-	}
+		return (NULL);
 	else
 	{
-		ret = ft_strtrim(str, " \n\t");
-		inp = input(ret);
-		printf("Input: %s$\n", inp);
-		free(inp);
-		return (ret);
+		cmd = parsecmd(str, ncmds);
+		return (cmd);
 	}
-	return (ret);
+	return (NULL);
 }
