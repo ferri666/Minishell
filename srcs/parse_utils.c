@@ -6,9 +6,13 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:59:18 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 15:06:12 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/23 17:21:50 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
+#include "libft.h"
+#include "colors.h"
 
 int	triple_pipe(const char *line)
 {

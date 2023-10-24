@@ -10,9 +10,6 @@ objs/
 *.dsYM
 a.out
 
-
-
-
 #ESPECIFICOS DE PROYECTO
 minishell
 #.gitignore

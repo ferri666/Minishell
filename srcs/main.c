@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 14:58:53 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/24 11:20:45 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	list_env(char **env)
 		i++;
 	}
 	if (i == 0)
-		printf("%s\n", "We coudn't find any enviroment variables. Sorry 🤷");
+		printf("%s\n", "MShell: We coudn't find any variables. Sorry 🤷");
 }
 
 int	main(int argc, char **argv, char **env)

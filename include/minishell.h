@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 15:04:17 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:39:15 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_cmd
 	char	*command;
 	char	**arguments;
 	int		n_arg;
+	int		append;
 }	t_cmd;
 
 /*  parse.c   */
@@ -40,6 +41,10 @@ char	**commands(char *str, int ncmds);
 
 /*  parse_utils.c   */
 int		triple_pipe(const char *line);
+
+/*   redirections.c  */
+char	*input(char *line);
+char	*output(char *line, t_cmd *cmd);
 
 /*  utils.c   */
 char	*spaces(char *frase);

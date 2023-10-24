@@ -6,13 +6,13 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/10/23 14:52:08 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/10/24 12:56:06 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= main parse utils commands exit errors_parse parse_utils
+SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections
 
 SRC_DIR			= srcs/
 OBJ_DIR			= objs/
@@ -22,7 +22,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE)
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) #-fsanitize=address
 OFLAGS			= -lreadline
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -54,6 +54,6 @@ fclean: clean
 re: fclean all
 
 norm:          
-		@norminette $(INCLUDE) $(LIBFT_DIR) $(SRC_DIR) $(B_DIR)| grep -v Norme -B1 || true
+		@norminette | grep -v "OK" || echo "\033[0;34m\n==> \033[0;36mNo norm errors!!\033[0m 🆗🆗🆗\n"
 
 .PHONY: all clean fclean re norm bonus re-all re-bonus

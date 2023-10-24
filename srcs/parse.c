@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 14:53:51 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/24 14:45:28 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ t_cmd	**parsecmd(char *str, int ncmds)
 	while (i < ncmds)
 	{
 		cmds[i] = malloc(sizeof(t_cmd));
-		cmds[i]->input = NULL;
-		cmds[i]->output = NULL;
+		cmds[i]->append = 0;
+		cmds[i]->input = input(comands[i]);
+		cmds[i]->output = output(comands[i], cmds[i]);
 		cmds[i]->command = ft_strtrim(comands[i], " \n\t");
-		printf("cmd%d:\"%s\"\n", i + 1, cmds[i]->command);
+		printf("cmd%d:\"%s\" INPUT:%s OUTPUT:%s\n", i + 1, cmds[i]->command, cmds[i]->input, cmds[i]->output);
 		if (ft_strlen(cmds[i]->command) == 0)
 			ft_error("MShell: parse error near '|' \n");
 		i++;
@@ -61,8 +62,6 @@ int	count_cmds(char *str)
 		else
 			str++;
 	}
-	if (flag)
-		return (-1);
 	return (n);
 }
 
@@ -71,7 +70,9 @@ char	*parse(char *str)
 	t_cmd	**cmd;
 	int		ncmds;
 	char	*ret;
+	char	*inp;
 
+	ret = NULL;
 	if (check_errors(str))
 		return (NULL);
 	ncmds = count_cmds(str);
@@ -85,12 +86,15 @@ char	*parse(char *str)
 	{
 		cmd = parsecmd(str, ncmds);
 		free_cmds(cmd, ncmds);
+		ret = ft_strtrim(str, " \n\t");
 	}
 	else
 	{
 		ret = ft_strtrim(str, " \n\t");
-		free(str);
+		inp = input(ret);
+		printf("Input: %s$\n", inp);
+		free(inp);
 		return (ret);
 	}
-	return (str);
+	return (ret);
 }
