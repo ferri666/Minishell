@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/24 16:05:27 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/10/31 14:35:06 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,8 @@ int		check_redirections(const char *line);
 
 /*   exit.c  */
 void	free_cmds(t_cmd **cmds, int ncmds);
+
+/* split args */
+char	**ft_split_args(char const *s, char c);
+
 #endif

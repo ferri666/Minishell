@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
+#    By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/10/24 12:56:06 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/10/31 13:33:07 by vpeinado         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections
+SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections split_args
 
 SRC_DIR			= srcs/
 OBJ_DIR			= objs/
