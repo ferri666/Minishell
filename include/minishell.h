@@ -6,7 +6,7 @@
 /*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/31 14:35:06 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/11/01 13:21:51 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	changeflag(char c, int *flag);
 void	ft_error(char *str);
 
 /*  errors_parse.c   */
+int		check_quotes(char *str);
 int		check_errors(char *str);
 int		check_redirections(const char *line);
 

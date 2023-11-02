@@ -2,48 +2,55 @@
 #include "libft.h"
 #include "colors.h"
 
-static int ft_count_word2(char const *s, char c)
+static int	ft_count_word2(char const *s, char c)
 {
-    int index_s = 0;
-    int word = 0;
-    int inside_quotes = 0;
+	int	word;
+	int flag = 0;
 
-    while (s && s[index_s])
-    {
-        if (s[index_s] == '\"')
-        {
-            inside_quotes = 1; // Toggle inside quotes flag
-        }
-        if (inside_quotes)
-        {
-            // If inside quotes, consider everything as one word
-            word++;
-            while (s[index_s] && s[index_s] != '\"')
-            {
-                index_s++;
-            }
-			if (s[index_s] == '\"')
-				inside_quotes = 0;
-        }
-        else if (s[index_s] != c)
-        {
-            // If not inside quotes and not a delimiter, consider it a word
-            word++;
-
-            // Skip the entire word, including the delimiter
-            while (s[index_s] && s[index_s] != c)
-            {
-                index_s++;
-            }
-        }
-        else
-        {
-            index_s++;
-        }
-    }
-
-    return word;
+	word = 0;
+	while (*s)
+	{
+		if (*s != c)
+		{
+			while (*s && (flag || *s != c))
+			{
+				if ((*s == '\"' || *s == '\''))
+					changeflag(*s, &flag);
+				s++;
+			}
+			word++;
+		}
+		else
+			s++;
+	}
+	return (word);
 }
+//cambiar por
+/*int	count_cmds(char *str, char c)
+{
+	int i = 0;
+	int		n;
+	int		flag;
+
+	flag = 0;
+	n = 0;
+	while (*str)
+	{
+		if (*str != c)
+		{
+			while (*str && (flag || *str != c))
+			{
+				if ((*str == '\"' || *str == '\''))
+					changeflag(*str, &flag);
+				str++;
+			}
+			n++;
+		}
+		else
+			str++;
+	}
+	return (n);
+}*/
 
 static int	ft_size_word2(char const *s, char c, int index_s)
 {
