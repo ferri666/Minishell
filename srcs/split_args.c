@@ -5,9 +5,10 @@
 static int	ft_count_word2(char const *s, char c)
 {
 	int	word;
-	int flag = 0;
+	int	flag;
 
 	word = 0;
+	flag = 0;
 	while (*s)
 	{
 		if (*s != c)
@@ -55,10 +56,14 @@ static int	ft_count_word2(char const *s, char c)
 static int	ft_size_word2(char const *s, char c, int index_s)
 {
 	int	size;
+	int	flag;
 
 	size = 0;
-	while (s[index_s] != c && s[index_s])
+	flag = 0;
+	while (s[index_s] && (flag || s[index_s] != c))
 	{
+		if ((s[index_s] == '\"' || s[index_s] == '\''))
+			changeflag(*s, &flag);
 		size++;
 		index_s++;
 	}

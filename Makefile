@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+         #
+#    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/10/31 13:33:07 by vpeinado         ###   ########.fr        #
+#    Updated: 2023/11/02 18:00:22 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) #-fsanitize=address
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -fsanitize=address
 OFLAGS			= -lreadline
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
