@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/24 14:37:25 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:28:48 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*extract_input(char *line)
 	while (*line && is_blank(*line))
 		line++;
 	start = line;
-	while (*line && (flag || (*line != '>' && *line != ' ')))
+	while (*line && (flag || (*line != '<' && *line != '>' && *line != ' ')))
 	{
 		if (*line == '\'' || *line == '\"')
 			changeflag(*line, &flag);
@@ -36,6 +36,8 @@ char	*extract_input(char *line)
 		line++;
 	}
 	ret = ft_substr(start, 0, n);
+	if (!ret || n == 0)
+		ret = ft_strdup("&STRIDEFAULT");
 	return (ret);
 }
 
@@ -53,7 +55,7 @@ char	*extract_output(char *line)
 	while (*line && is_blank(*line))
 		line++;
 	start = line;
-	while (*line && (flag || (*line != '<' && *line != ' ')))
+	while (*line && (flag || (*line != '<' && *line != '>' && *line != ' ')))
 	{
 		if (*line == '\'' || *line == '\"')
 			changeflag(*line, &flag);
@@ -61,16 +63,22 @@ char	*extract_output(char *line)
 		line++;
 	}
 	ret = ft_substr(start, 0, n);
+	if (!ret || n == 0)
+		ret = ft_strdup("&STRIDEFAULT");
 	return (ret);
 }
 
-char	*input(char *line)
+char	**input(char *line)
 {
 	int		flag;
-	char	*inp;
+	char	**inp;
+	int		i;
 
 	flag = 0;
-	inp = NULL;
+	i = 0;
+	inp = (char **)malloc (sizeof(char *) * (n_input(line) + 1));
+	if (!inp)
+		return (NULL);
 	while (*line)
 	{
 		if (*line == '\'' || *line == '\"')
@@ -78,24 +86,25 @@ char	*input(char *line)
 		if (*line == '<' && !flag)
 		{
 			if (*(line + 1) == '<')
-				return (ft_strdup("&HEREDOC"));
+				inp[i++] = ft_strdup("&HEREDOC");
 			else
-				inp = extract_input(line);
+				inp[i++] = extract_input(line);
 		}
 		line++;
 	}
-	if (!inp || ft_strlen(inp) == 0)
-		return (ft_strdup("&DEFAULT"));
+	inp[i] = 0;
 	return (inp);
 }
 
-char	*output(char *line, t_cmd *cmd)
+char	**output(char *line)
 {
 	int		flag;
-	char	*inp;
+	char	**out;
+	int		i;
 
 	flag = 0;
-	inp = NULL;
+	i = 0;
+	out = (char **)malloc (sizeof(char *) * (n_output(line) + 1));
 	while (*line)
 	{
 		if (*line == '\'' || *line == '\"')
@@ -103,16 +112,11 @@ char	*output(char *line, t_cmd *cmd)
 		if (*line == '>' && !flag)
 		{
 			if (*(line + 1) == '>')
-			{
-				cmd->append = 1;
 				line++;
-			}
-			inp = extract_output(line);
+			out[i++] = extract_output(line);
 		}
 		line++;
 	}
-	if (!inp || ft_strlen(inp) == 0)
-		return (ft_strdup("&DEFAULT"));
-	return (inp);
+	out[i] = 0;
+	return (out);
 }
-

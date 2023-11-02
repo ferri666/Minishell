@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/24 16:05:27 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:27:48 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 typedef struct s_cmd
 {
-	char	*input;
-	char	*output;
+	char	**input;
+	char	**output;
 	char	*command;
 	char	**arguments;
 	int		n_arg;
@@ -41,20 +41,24 @@ char	**commands(char *str, int ncmds);
 
 /*  parse_utils.c   */
 int		triple_pipe(const char *line);
+int		is_redirection(const char *c);
+int		is_quote(const char c);
+int		n_output(char *line);
+int		n_input(char *line);
+
+/*  errors_parse.c   */
+int		check_errors(char *str);
+int		check_redirections(const char *line);
 
 /*   redirections.c  */
-char	*input(char *line);
-char	*output(char *line, t_cmd *cmd);
+char	**input(char *line);
+char	**output(char *line);
 
 /*  utils.c   */
 char	*spaces(char *frase);
 int		is_blank(int c);
 void	changeflag(char c, int *flag);
 void	ft_error(char *str);
-
-/*  errors_parse.c   */
-int		check_errors(char *str);
-int		check_redirections(const char *line);
 
 /*   exit.c  */
 void	free_cmds(t_cmd **cmds, int ncmds);

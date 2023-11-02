@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:50:22 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/14 18:43:33 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:28:31 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,43 +56,3 @@ char	**commands(char *str, int ncmds)
 	return (res);
 }
 
-int	count_args(char *str)
-{
-	int		n;
-	int		flag;
-
-	flag = 0;
-	str = spaces(str);
-	n = 0;
-	while (*str)
-	{
-		if (*str != ' ')
-		{
-			while (*str && (flag || *str != ' '))
-			{
-				if ((*str == '\"' || *str == '\''))
-					changeflag(*str, &flag);
-				str++;
-			}
-			n++;
-		}
-		else
-			str++;
-	}
-	if (flag)
-		return (-1);
-	return (n);
-}
-
-char	**arguments(char *str)
-{
-	char	**res;
-
-	if (!str)
-		return (NULL);
-	res = malloc (sizeof(char *) * (count_args(str) + 1));
-	if (!res)
-		return (NULL);
-	res = fill_array(res, str, ' ');
-	return (res);
-}
