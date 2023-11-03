@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/24 16:14:04 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/02 18:00:18 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	main(int argc, char **argv, char **env)
 	char	*linea;
 	t_cmd	**cmd;
 
-	atexit(leaks);
+	//atexit(leaks);
 	if (argc != 1)
 		printf ("%s\n", argv[1]);
 	while (1)
