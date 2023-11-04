@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/03 12:21:53 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:34:56 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,6 @@ t_cmd	**parsecmd(char *str, int ncmds)
 		{
 			printf("argumento: %s\n", cmds[i]->arguments[k]);
 			k++;
-		}
-		//printf("cmd%d:\"%s\" INPUT:%s OUTPUT:%s\n", i + 1, cmds[i]->command, cmds[i]->input, cmds[i]->output);
-		if (ft_strlen(cmds[i]->command) == 0)
-		{
-			ft_error("MShell: parse error near '|' \n");
-			return (NULL);
 		}
 		i++;
 	}
