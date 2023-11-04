@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/02 18:06:21 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/04 19:15:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ t_cmd	**parsecmd(char *str, int ncmds)
 	int		i;
 	t_cmd	**cmds;
 	char	**comands;
-	int k = 1;
+	int k;
+
 	i = 0;
 	comands = commands(str, ncmds);
 	cmds = malloc (sizeof(t_cmd *) * ncmds);
@@ -32,9 +33,10 @@ t_cmd	**parsecmd(char *str, int ncmds)
 		cmds[i]->command = ft_strtrim(comands[i], " \n\t");
 		cmds[i]->arguments = ft_split_args(cmds[i]->command, ' ');
 		printf("comando: %s\n", cmds[i]->arguments[0]);
+		k = 1;
 		while (cmds[i]->arguments[k])
 		{
-			printf("argumento: %s\n", cmds[i]->arguments[k]);
+			printf("argumento%d: \"%s\"\n", k, cmds[i]->arguments[k]);
 			k++;
 		}
 		//printf("cmd%d:\"%s\" INPUT:%s OUTPUT:%s\n", i + 1, cmds[i]->command, cmds[i]->input, cmds[i]->output);

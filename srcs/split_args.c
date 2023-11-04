@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   split_args.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/04 19:09:28 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/11/04 19:09:44 by ffons-ti         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "libft.h"
 #include "colors.h"
@@ -26,32 +38,6 @@ static int	ft_count_word2(char const *s, char c)
 	}
 	return (word);
 }
-//cambiar por
-/*int	count_cmds(char *str, char c)
-{
-	int i = 0;
-	int		n;
-	int		flag;
-
-	flag = 0;
-	n = 0;
-	while (*str)
-	{
-		if (*str != c)
-		{
-			while (*str && (flag || *str != c))
-			{
-				if ((*str == '\"' || *str == '\''))
-					changeflag(*str, &flag);
-				str++;
-			}
-			n++;
-		}
-		else
-			str++;
-	}
-	return (n);
-}*/
 
 static int	ft_size_word2(char const *s, char c, int index_s)
 {

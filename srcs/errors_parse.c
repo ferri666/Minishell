@@ -6,13 +6,30 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/23 17:16:10 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/04 17:22:21 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 #include "colors.h"
+
+int	check_pipe_bis(const char *line)
+{
+	while (*line)
+	{
+		if (*line == '|')
+		{
+			line++;
+			while (*line && is_blank(*line))
+				line++;
+			if (*line == '\0' || *line == '|')
+				return (1);
+		}
+		line++;
+	}
+	return (0);
+}
 
 int	check_quotes(char *str)
 {
@@ -45,6 +62,11 @@ int	check_pipe(const char *line)
 		return (1);
 	}
 	if (line[ft_strlen(line) - 1] == '|')
+	{
+		ft_error("MShell: syntax error near '|'\n");
+		return (1);
+	}
+	if (check_pipe_bis(line))
 	{
 		ft_error("MShell: syntax error near '|'\n");
 		return (1);
