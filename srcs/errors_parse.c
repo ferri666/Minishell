@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/04 17:22:21 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/16 19:17:51 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int	check_quotes(char *str)
 
 int	check_pipe(const char *line)
 {
+	if (!line)
+		return (0);
 	if (line[0] == '|')
 	{
 		ft_error("MShell: syntax error near '|'\n");

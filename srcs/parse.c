@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 13:54:44 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:47:39 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_cmd	**parsecmd(char *str, int ncmds)
 
 	i = -1;
 	stcom = commands(str, ncmds);
-	cmds = malloc (sizeof(t_cmd *) * ncmds);
+	cmds = ft_calloc (sizeof(t_cmd *), ncmds);
 	while (++i < ncmds)
 	{
 		cmds[i] = new_cmd(stcom[i]);
@@ -63,7 +63,6 @@ t_cmd	**parsecmd(char *str, int ncmds)
 		cmds[i]->command = ft_strdup(cmds[i]->args[0]);
 		if (i > 0)
 			cmds[i - 1]->next_cmd = cmds[i];
-		printf("CW:%d INPUT: %s OUTPUT: %s COMMAND: %s\n", ft_cw2(stcom[i], ' '), cmds[i]->input[0], cmds[i]->output[0], cmds[i]->command);
 	}
 	ft_free_matrix((void **)stcom);
 	return (cmds);

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 13:53:22 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:33:23 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,16 @@ int		ft_cw2(char const *s, char c);
 
 /* cmd.c */
 t_cmd	*new_cmd(char *str);
+
+
+
+void main_exec(t_cmd *cmd, char **env);
+void exec_builtin(t_cmd *cmd);
+void execute_command(t_cmd *cmd, int in_fd, int out_fd, char **env);
+void execute_command2(t_cmd *cmd, int in_fd, int out_fd);
+int is_builtin(t_cmd *cmd);
+char *get_env_var(char *var, char **env);
+int is_valid_command_in_path(t_cmd *cmd, char **env);
+size_t	ft_strarrlen(char **arr);
+void ft_echo(char **args);
 #endif
