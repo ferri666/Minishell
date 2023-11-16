@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/04 19:37:52 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:54:44 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,58 @@
 #include "libft.h"
 #include "colors.h"
 
+int	extract(t_cmd *c, char *str)
+{
+	int			i;
+	int			j;
+	int			k;
+
+	i = -1;
+	j = -1;
+	k = -1;
+	while (*str && is_blank(*str))
+			str++;
+	while (*str)
+	{
+		if (*str == '<')
+			str = ex_input(str, c, ++i);
+		else if (*str == '>')
+			str = ex_output(str, c, ++j);
+		else
+			str = ex_arg(str, c, ++k);
+		while (*str && is_blank(*str))
+			str++;
+	}
+	if (k < 0)
+		return (0);
+	return (1);
+}
+
 t_cmd	**parsecmd(char *str, int ncmds)
 {
 	int		i;
 	t_cmd	**cmds;
-	char	**comands;
-	int k;
+	char	**stcom;
 
-	i = 0;
-	comands = commands(str, ncmds);
+	i = -1;
+	stcom = commands(str, ncmds);
 	cmds = malloc (sizeof(t_cmd *) * ncmds);
-	while (i < ncmds)
+	while (++i < ncmds)
 	{
-		cmds[i] = malloc(sizeof(t_cmd));
-		cmds[i]->append = 0;
-		cmds[i]->input = input(comands[i]);
-		cmds[i]->output = output(comands[i]);
-		cmds[i]->command = ft_strtrim(comands[i], " \n\t");
-		cmds[i]->arguments = ft_split_args(cmds[i]->command, ' ');
-		printf("comando: %s\n", cmds[i]->arguments[0]);
-		k = 1;
-		while (cmds[i]->arguments[k])
+		cmds[i] = new_cmd(stcom[i]);
+		if (!extract (cmds[i], stcom[i]))
 		{
-			printf("argumento%d: \"%s\"\n", k, cmds[i]->arguments[k]);
-			k++;
+			free_cmds(cmds, i + 1);
+			ft_free_matrix((void **)stcom);
+			ft_error("MShell: syntax error 😱\n");
+			return (NULL);
 		}
-		i++;
+		cmds[i]->command = ft_strdup(cmds[i]->args[0]);
+		if (i > 0)
+			cmds[i - 1]->next_cmd = cmds[i];
+		printf("CW:%d INPUT: %s OUTPUT: %s COMMAND: %s\n", ft_cw2(stcom[i], ' '), cmds[i]->input[0], cmds[i]->output[0], cmds[i]->command);
 	}
-	ft_free_matrix((void **)comands);
+	ft_free_matrix((void **)stcom);
 	return (cmds);
 }
 
@@ -80,7 +104,10 @@ t_cmd	**parse(char *str)
 		return (NULL);
 	ncmds = count_cmds(str);
 	if (ncmds > MAXCMD)
+	{
 		ft_error("MShell: 👮🛑 STOP! That's too many commands!\n");
+		return (NULL);
+	}
 	else if (ncmds == 0)
 		return (NULL);
 	else

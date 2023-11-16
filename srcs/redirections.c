@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/02 17:28:48 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:08:33 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-char	*extract_input(char *line)
+char	*extract_put(char *line)
 {
 	size_t	n;
 	int		flag;
@@ -23,11 +23,14 @@ char	*extract_input(char *line)
 
 	n = 0;
 	flag = 0;
-	ret = NULL;
-	line++;
 	while (*line && is_blank(*line))
 		line++;
 	start = line;
+	if (*line == '\'' || *line == '\"')
+	{
+		changeflag(*line++, &flag);
+		n++;
+	}
 	while (*line && (flag || (*line != '<' && *line != '>' && *line != ' ')))
 	{
 		if (*line == '\'' || *line == '\"')
@@ -36,87 +39,76 @@ char	*extract_input(char *line)
 		line++;
 	}
 	ret = ft_substr(start, 0, n);
-	if (!ret || n == 0)
-		ret = ft_strdup("&STRIDEFAULT");
 	return (ret);
 }
 
-char	*extract_output(char *line)
+char	*ex_input(char *str, t_cmd *c, int i)
 {
-	size_t	n;
-	int		flag;
-	char	*ret;
-	char	*start;
+	int	flag;
 
-	n = 0;
 	flag = 0;
-	ret = NULL;
-	line++;
-	while (*line && is_blank(*line))
-		line++;
-	start = line;
-	while (*line && (flag || (*line != '<' && *line != '>' && *line != ' ')))
+	str++;
+	if (*str == '<')
 	{
-		if (*line == '\'' || *line == '\"')
-			changeflag(*line, &flag);
-		n++;
-		line++;
+		c->in_redir_type = ft_strdup("<<");
+		str++;
 	}
-	ret = ft_substr(start, 0, n);
-	if (!ret || n == 0)
-		ret = ft_strdup("&STRIDEFAULT");
-	return (ret);
+	else
+		c->in_redir_type = ft_strdup("<");
+	while (*str && is_blank(*str))
+			str++;
+	c->input[i] = extract_put(str);
+	if (*str == '\'' || *str == '\"')
+		changeflag(*str++, &flag);
+	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))
+	{
+		if (*str == '\'' || *str == '\"')
+			changeflag(*str, &flag);
+		str++;
+	}
+	return (str);
 }
 
-char	**input(char *line)
+char	*ex_output(char *str, t_cmd *c, int i)
 {
-	int		flag;
-	char	**inp;
-	int		i;
+	int	flag;
 
 	flag = 0;
-	i = 0;
-	inp = (char **)malloc (sizeof(char *) * (n_input(line) + 1));
-	if (!inp)
-		return (NULL);
-	while (*line)
+	str++;
+	if (*str == '>')
 	{
-		if (*line == '\'' || *line == '\"')
-			changeflag(*line, &flag);
-		if (*line == '<' && !flag)
-		{
-			if (*(line + 1) == '<')
-				inp[i++] = ft_strdup("&HEREDOC");
-			else
-				inp[i++] = extract_input(line);
-		}
-		line++;
+		c->in_redir_type = ft_strdup(">>");
+		str++;
 	}
-	inp[i] = 0;
-	return (inp);
+	else
+		c->in_redir_type = ft_strdup(">");
+	while (*str && is_blank(*str))
+			str++;
+	c->output[i] = extract_put(str);
+	if (*str == '\'' || *str == '\"')
+		changeflag(*str++, &flag);
+	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))
+	{
+		if (*str == '\'' || *str == '\"')
+			changeflag(*str, &flag);
+		str++;
+	}
+	return (str);
 }
 
-char	**output(char *line)
+char	*ex_arg(char *str, t_cmd *c, int i)
 {
-	int		flag;
-	char	**out;
-	int		i;
+	int	flag;
 
 	flag = 0;
-	i = 0;
-	out = (char **)malloc (sizeof(char *) * (n_output(line) + 1));
-	while (*line)
+	c->args[i] = extract_put(str);
+	if (*str == '\'' || *str == '\"')
+		changeflag(*str++, &flag);
+	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))
 	{
-		if (*line == '\'' || *line == '\"')
-			changeflag(*line, &flag);
-		if (*line == '>' && !flag)
-		{
-			if (*(line + 1) == '>')
-				line++;
-			out[i++] = extract_output(line);
-		}
-		line++;
+		if (*str == '\'' || *str == '\"')
+			changeflag(*str, &flag);
+		str++;
 	}
-	out[i] = 0;
-	return (out);
+	return (str);
 }

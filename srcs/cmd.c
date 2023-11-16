@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   cmd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 16:01:36 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/15 17:56:50 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/11/12 16:58:55 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/11/14 13:11:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,15 @@
 #include "libft.h"
 #include "colors.h"
 
-void	free_cmds(t_cmd **cmds, int ncmds)
+t_cmd	*new_cmd(char *str)
 {
-	int	i;
+	t_cmd	*new;
 
-	i = 0;
-	while (i < ncmds)
-	{
-		ft_free_matrix((void **)cmds[i]->input);
-		ft_free_matrix((void **)cmds[i]->output);
-		ft_free_matrix((void **)cmds[i]->args);
-		free(cmds[i]->command);
-		if (cmds[i]->in_redir_type)
-			free(cmds[i]->in_redir_type);
-		if (cmds[i]->out_redir_type)
-			free(cmds[i]->out_redir_type);
-		free(cmds[i]);
-		i++;
-	}
-	free(cmds);
+	new = malloc (sizeof(t_cmd));
+	new->input = (char **)malloc(sizeof(char *) * n_input(str) + 1);
+	new->output = (char **)malloc(sizeof(char *) * n_output(str) + 1);
+	new->in_redir_type = NULL;
+	new->out_redir_type = NULL;
+	new->next_cmd = NULL;
+	return (new);
 }

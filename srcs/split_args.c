@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 19:09:28 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/04 19:09:44 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/15 16:39:08 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-static int	ft_count_word2(char const *s, char c)
+int	ft_cw2(char const *s, char c)
 {
 	int	word;
 	int	flag;
@@ -72,10 +72,10 @@ char	**ft_split_args(char const *s, char c)
 
 	index_s = 0;
 	index_strs = -1;
-	strs = (char **)malloc((ft_count_word2(s, c) + 1) * sizeof(char *));
+	strs = (char **)malloc((ft_cw2(s, c) + 1) * sizeof(char *));
 	if (!strs)
 		return (NULL);
-	while (++index_strs < ft_count_word2(s, c))
+	while (++index_strs < ft_cw2(s, c))
 	{
 		while (s[index_s] == c)
 			index_s++;

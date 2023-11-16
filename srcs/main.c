@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/04 19:28:24 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:01:25 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int argc, char **argv, char **env)
 					list_env(env);
 				if (ft_strncmp(cmd[0]->command, "exit", 4) == 0)
 					break ;
+				free_cmds(cmd, count_cmds(linea));
 			}
 		}
 		free(linea);

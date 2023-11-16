@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/03 12:23:39 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:53:22 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,15 @@ typedef struct s_cmd
 {
 	char	**input;
 	char	**output;
+	int		in_fd;
+	int		out_fd;
 	char	*command;
-	char	**arguments;
+	char	**args;
+	char	*out_redir_type;
+	char	*in_redir_type;
 	int		n_arg;
 	int		append;
+	void	*next_cmd;
 }	t_cmd;
 
 /*  parse.c   */
@@ -51,8 +56,9 @@ int		check_errors(char *str);
 int		check_redirections(const char *line);
 
 /*   redirections.c  */
-char	**input(char *line);
-char	**output(char *line);
+char	*ex_input(char *str, t_cmd *c, int i);
+char	*ex_output(char *str, t_cmd *c, int i);
+char	*ex_arg(char *str, t_cmd *c, int i);
 
 /*  utils.c   */
 char	*spaces(char *frase);
@@ -70,5 +76,8 @@ void	free_cmds(t_cmd **cmds, int ncmds);
 
 /* split args */
 char	**ft_split_args(char const *s, char c);
+int		ft_cw2(char const *s, char c);
 
+/* cmd.c */
+t_cmd	*new_cmd(char *str);
 #endif
