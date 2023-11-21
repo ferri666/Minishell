@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:01:36 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 19:11:16 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:13:53 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,9 @@ void	free_cmds(t_cmd **cmds, int ncmds)
 	}
 	free(cmds);
 }
+/*
+void flee(t_cmd *cmds, char *str)
+{
+	
+}
+*/

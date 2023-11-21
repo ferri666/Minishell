@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 19:17:51 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:39:03 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-int	check_pipe_bis(const char *line)
+static int	check_pipe_bis(const char *line)
 {
 	while (*line)
 	{
@@ -31,7 +31,7 @@ int	check_pipe_bis(const char *line)
 	return (0);
 }
 
-int	check_quotes(char *str)
+static int	check_quotes(char *str)
 {
 	char	quo;
 	int		open;
@@ -54,10 +54,10 @@ int	check_quotes(char *str)
 	return (open);
 }
 
-int	check_pipe(const char *line)
+static int	check_pipe(const char *line)
 {
 	if (!line)
-		return (0);
+		return (1);
 	if (line[0] == '|')
 	{
 		ft_error("MShell: syntax error near '|'\n");
@@ -76,7 +76,7 @@ int	check_pipe(const char *line)
 	return (0);
 }
 
-int	check_redirections(const char *line)
+static int	check_redirections(const char *line)
 {
 	while (*line)
 	{

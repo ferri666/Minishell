@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 18:33:23 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:38:01 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef struct s_cmd
 	void	*next_cmd;
 }	t_cmd;
 
+typedef struct s_minsh
+{
+	t_cmd	**cmds;
+	int		exit_code;
+	int		end_prog;
+}	t_minsh;
+
+
 /*  parse.c   */
 t_cmd	**parse(char *str);
 char	*closed_quotes(char *str);
@@ -53,7 +61,6 @@ int		n_input(char *line);
 
 /*  errors_parse.c   */
 int		check_errors(char *str);
-int		check_redirections(const char *line);
 
 /*   redirections.c  */
 char	*ex_input(char *str, t_cmd *c, int i);
@@ -66,11 +73,6 @@ int		is_blank(int c);
 void	changeflag(char c, int *flag);
 void	ft_error(char *str);
 
-/*  errors_parse.c   */
-int		check_quotes(char *str);
-int		check_errors(char *str);
-int		check_redirections(const char *line);
-
 /*   exit.c  */
 void	free_cmds(t_cmd **cmds, int ncmds);
 
@@ -82,14 +84,15 @@ int		ft_cw2(char const *s, char c);
 t_cmd	*new_cmd(char *str);
 
 
-
-void main_exec(t_cmd *cmd, char **env);
-void exec_builtin(t_cmd *cmd);
-void execute_command(t_cmd *cmd, int in_fd, int out_fd, char **env);
-void execute_command2(t_cmd *cmd, int in_fd, int out_fd);
-int is_builtin(t_cmd *cmd);
-char *get_env_var(char *var, char **env);
-int is_valid_command_in_path(t_cmd *cmd, char **env);
+/*exec + builtin*/
+void	main_exec(t_cmd *cmd, char **env);
+void	exec_builtin(t_cmd *cmd);
+void	execute_command(t_cmd *cmd, int in_fd, int out_fd, char **env);
+void	execute_command2(t_cmd *cmd, int in_fd, int out_fd);
+int		is_builtin(t_cmd *cmd);
+char	*get_env_var(char *var, char **env);
+int		is_valid_command_in_path(t_cmd *cmd, char **env);
 size_t	ft_strarrlen(char **arr);
-void ft_echo(char **args);
+void	ft_echo(char **args);
+void	ft_exit(t_cmd *cmd);
 #endif

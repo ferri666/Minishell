@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 18:47:39 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/20 14:14:15 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	extract(t_cmd *c, char *str)
 	j = -1;
 	k = -1;
 	while (*str && is_blank(*str))
-			str++;
+		str++;
 	while (*str)
 	{
 		if (*str == '<')

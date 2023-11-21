@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 14:42:47 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/20 14:42:48 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/11/21 11:14:41 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/11/21 11:27:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-void ft_cd(char **args)
+void	ft_exit(t_cmd *cmd)
 {
-    (void)args;
-    printf("cd builtin");
+	cmd->next_cmd = NULL;
 }

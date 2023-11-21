@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/16 19:15:04 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/20 17:27:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,21 @@
 void	leaks(void)
 {
 	system("leaks -q minishell");
+}
+
+int	input(char *line)
+{
+	char	*buf;
+
+	buf = readline("MShell $~ ");
+	if (ft_strlen(buf) != 0)
+	{
+		add_history(buf);
+		ft_strlcpy(line, buf, ft_strlen(buf) + 1);
+		free(buf);
+		return (0);
+	}
+	return (1);
 }
 
 void	list_env(char **env)
@@ -35,26 +50,25 @@ void	list_env(char **env)
 
 int	main(int argc, char **argv, char **env)
 {
-	char	*linea;
+	char	linea[1000];
 	t_cmd	**cmd;
 
-	//atexit(leaks);
 	if (argc != 1)
 		printf ("%s\n", argv[1]);
 	while (1)
 	{
-		linea = readline("MShell $~ ");
+		if (input(linea))
+			continue ;
 		cmd = parse(linea);
 		if (!cmd)
 			break ;
-		if (linea)
-			add_history(linea);
 		main_exec(*cmd, env);
 		free_cmds(cmd, count_cmds(linea));
-		free(linea);
+		leaks();
 	}
 	if (cmd)
 		free_cmds(cmd, count_cmds(linea));
-	free(linea);
 	return (0);
 }
+
+
