@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/21 11:38:01 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/21 20:34:32 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@
 
 typedef struct s_cmd
 {
-	char	**input;
-	char	**output;
-	int		in_fd;
-	int		out_fd;
-	char	*command;
-	char	**args;
-	char	*out_redir_type;
-	char	*in_redir_type;
-	int		n_arg;
-	int		append;
-	void	*next_cmd;
+	char			**input;
+	char			**output;
+	int				infile;
+	int				outfile;
+	char			*command;
+	char			**args;
+	char			*out_redir_type;
+	char			*in_redir_type;
+	struct s_cmd	*next_cmd;
 }	t_cmd;
 
 typedef struct s_minsh
