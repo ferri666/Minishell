@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/21 20:35:55 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:11:30 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,23 @@ void	leaks(void)
 	system("leaks -q minishell");
 }
 
+void	prompt(void)
+{
+	ft_putendl_fd("***************************", 1);
+	ft_putendl_fd("* _____ _____ _       _ _ *", 1);
+	ft_putendl_fd("*|     |   __| |_ ___| | |*", 1);
+	ft_putendl_fd("*| | | |__   |   | -_| | |*", 1);
+	ft_putendl_fd("*|_|_|_|_____|_|_|___|_|_|*", 1);
+	ft_putendl_fd("***************************", 1);
+}
+
 int	input(char *line)
 {
 	char	*buf;
 
-	buf = readline("MShell $~ ");
+	buf = readline("\nMShell $~ ");
+	if (!buf)
+		return (1);
 	if (ft_strlen(buf) > 1000)
 	{
 		ft_error("MShell: 😱 That's too long!!! I'm not gonna remember that!\n");
@@ -62,6 +74,7 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc != 1)
 		printf ("%s\n", argv[1]);
+	prompt();
 	while (1)
 	{
 		if (input(linea))

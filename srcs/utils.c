@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/13 19:39:03 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:57:28 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*closed_quotes(char *str)
 		str++;
 	if (*str == '\0')
 	{
-		printf ("MShell: 😕 ¡You didn't close your quotes you DingDong!\n");
+		printf ("MShell: ¡You didn't close your quotes you DingDong!\n");
 		return (0);
 	}
 	else

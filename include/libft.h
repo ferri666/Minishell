@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:51:54 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/10/10 13:12:21 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:53:36 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char		*ft_strdup(const char *s1);
 
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(char *s1, char *s2);
 
 char		*ft_itoa(int n);
 

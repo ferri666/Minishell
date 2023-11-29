@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/11/21 11:22:19 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 10:57:12 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 #include "libft.h"
 #include "colors.h"
 
-void	redirect(t_cmd *cmd, int in_fd, int out_fd)
+void	redirect(t_cmd *cmd, int infile, int outfile)
 {
 	int	i;
 	int	fd;
 
 	fd = 0;
 	i = 0;
-	if (in_fd != STDIN_FILENO)
+	if (infile != STDIN_FILENO)
 	{
-		if (dup2(in_fd, STDIN_FILENO) == -1)
+		if (dup2(infile, STDIN_FILENO) == -1)
 			perror("dup2");
-		close(in_fd);
+		close(infile);
 	}
-	if (out_fd != STDOUT_FILENO)
+	if (outfile != STDOUT_FILENO)
 	{
-		if (dup2(out_fd, STDOUT_FILENO) == -1)
+		if (dup2(outfile, STDOUT_FILENO) == -1)
 			perror("dup2");
-		close(out_fd);
+		close(outfile);
 	}
 	if (cmd->output)
 	{
@@ -68,7 +68,7 @@ void	redirect(t_cmd *cmd, int in_fd, int out_fd)
 	}
 }
 
-void	execute_command(t_cmd *cmd, int in_fd, int out_fd, char **env)
+void	execute_command(t_cmd *cmd, int infile, int outfile, char **env)
 {
 	pid_t	pid = fork();
 	int status;
@@ -80,7 +80,7 @@ void	execute_command(t_cmd *cmd, int in_fd, int out_fd, char **env)
 	}
 	else if (pid == 0) // Proceso hijo
 	{
-		redirect(cmd, in_fd, out_fd);
+		redirect(cmd, infile, outfile);
 		execve(cmd->command, cmd->args, env); // Ejecuta el comando
 		perror("execve");
 		exit(1);
@@ -104,33 +104,33 @@ void	main_exec(t_cmd *cmd, char **env)
 		if (cmd->next_cmd)
 		{
 			pipe(pipefd);
-			cmd->out_fd = pipefd[1];
-			((t_cmd *)cmd->next_cmd)->in_fd = pipefd[0];
+			cmd->outfile = pipefd[1];
+			((t_cmd *)cmd->next_cmd)->infile = pipefd[0];
 		}
 		else
-			cmd->out_fd = STDOUT_FILENO;
+			cmd->outfile = STDOUT_FILENO;
 		if (is_builtin(cmd))
 		{
 			exec_builtin(cmd);
 		}
 		else if (is_valid_command_in_path(cmd, env))
 		{
-			execute_command(cmd, cmd->in_fd, cmd->out_fd, env);
+			execute_command(cmd, cmd->infile, cmd->outfile, env);
 		}
 		else
 		{
 			if (access(cmd->command, F_OK) == 0)
 			{
-				execute_command(cmd, cmd->in_fd, cmd->out_fd, env);
+				execute_command(cmd, cmd->infile, cmd->outfile, env);
 			}
 			else
 			{
-				printf("Mshell: command not found: %s\n", cmd->command);
+				printf("MS hell: command not found: %s\n", cmd->command);
 				break ;
 			}
 		}
 		close(pipefd[1]);
-		cmd->in_fd = pipefd[0];
+		cmd->infile = pipefd[0];
 		cmd = (t_cmd *)cmd->next_cmd;
 	}
 }

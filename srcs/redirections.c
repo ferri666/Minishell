@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/15 17:08:33 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 11:03:18 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ex_input(char *str, t_cmd *c, int i)
 	else
 		c->in_redir_type = ft_strdup("<");
 	while (*str && is_blank(*str))
-			str++;
+		str++;
 	c->input[i] = extract_put(str);
 	if (*str == '\'' || *str == '\"')
 		changeflag(*str++, &flag);
