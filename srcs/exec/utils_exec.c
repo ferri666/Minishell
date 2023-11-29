@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/11/21 11:29:06 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:08:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	is_valid_command_in_path(t_cmd *cmd, char **env)
 
 	i = 0;
 	path = ft_split(get_env_var("PATH", env), ':');
+	if (!path)
+		return (0);
 	while (path[i])
 	{
 		tmp = ft_strjoin(path[i], "/");

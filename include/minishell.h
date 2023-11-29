@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 10:49:30 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 15:24:33 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,36 @@ typedef struct s_minsh
 }	t_minsh;
 
 
-/*  parse.c   */
+/*   parse.c   */
 t_cmd	**parse(char *str);
 char	*closed_quotes(char *str);
 int		count_cmds(char *str);
 char	**commands(char *str, int ncmds);
 
-/*  parse_utils.c   */
+/*   parse_utils.c   */
 int		triple_pipe(const char *line);
 int		is_redirection(const char *c);
 int		is_quote(const char c);
 int		n_output(char *line);
 int		n_input(char *line);
 
-/*  errors_parse.c   */
+/*   errors_parse.c   */
 int		check_errors(char *str);
 
 /*   redirections.c  */
 char	*ex_input(char *str, t_cmd *c, int i);
 char	*ex_output(char *str, t_cmd *c, int i);
 char	*ex_arg(char *str, t_cmd *c, int i);
+
+/*   expand.c  */
+t_cmd	**expand_all(t_cmd **cmd, int n_cmds, char **env);
+
+/*   expand_utils.c  */
+int		n_expands(char *line);
+char	*extract_env(char *env);
+int		n_quotes(char *line);
+void	free_this(char *this[5]);
+char	*quolim(char *st, size_t len);
 
 /*  utils.c   */
 char	*spaces(char *frase);
@@ -82,7 +92,7 @@ int		ft_cw2(char const *s, char c);
 t_cmd	*new_cmd(char *str);
 
 
-/*exec + builtin*/
+/*exec + builtins*/
 void	main_exec(t_cmd *cmd, char **env);
 void	exec_builtin(t_cmd *cmd);
 void	execute_command(t_cmd *cmd, int infile, int outfile, char **env);

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/11/29 10:57:12 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/11/29 16:11:14 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	main_exec(t_cmd *cmd, char **env)
 			}
 			else
 			{
-				printf("MS hell: command not found: %s\n", cmd->command);
+				printf("MShell: command not found: %s\n", cmd->command);
 				break ;
 			}
 		}

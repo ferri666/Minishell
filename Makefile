@@ -6,13 +6,14 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/11/21 11:27:35 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/11/29 16:00:05 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections split_args cmd
+SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections split_args cmd \
+					expand expand_utils
 EXEC_FILES		= main_exec utils_exec
 BUILT_FILES		= ft_cd ft_echo ft_exit
 SRC_DIR			= srcs/
@@ -25,7 +26,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -g3 #-fsanitize=address 
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -g3 -fsanitize=address 
 OFLAGS			= -lreadline
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
