@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 14:39:30 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:45:39 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ char	*ex_input(char *str, t_cmd *c, int i)
 	int	flag;
 
 	flag = 0;
-	str++;
-	if (*str == '<')
+	if (c->in_redir_type)
+		free (c->in_redir_type);
+	if (*++str == '<')
 	{
 		c->in_redir_type = ft_strdup("<<");
 		str++;
@@ -57,7 +58,8 @@ char	*ex_input(char *str, t_cmd *c, int i)
 		c->in_redir_type = ft_strdup("<");
 	while (*str && is_blank(*str))
 		str++;
-	c->input[i] = extract_put(str);
+	if (*str != '>' || *str != '<')
+		c->input[i] = extract_put(str);
 	if (*str == '\'' || *str == '\"')
 		changeflag(*str++, &flag);
 	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))
@@ -74,17 +76,19 @@ char	*ex_output(char *str, t_cmd *c, int i)
 	int	flag;
 
 	flag = 0;
-	str++;
-	if (*str == '>')
+	if (c->out_redir_type)
+		free (c->out_redir_type);
+	if (*++str == '>')
 	{
-		c->in_redir_type = ft_strdup(">>");
+		c->out_redir_type = ft_strdup(">>");
 		str++;
 	}
 	else
-		c->in_redir_type = ft_strdup(">");
+		c->out_redir_type = ft_strdup(">");
 	while (*str && is_blank(*str))
 		str++;
-	c->output[i] = extract_put(str);
+	if (*str != '<' || *str != '>')
+		c->output[i] = extract_put(str);
 	if (*str == '\'' || *str == '\"')
 		changeflag(*str++, &flag);
 	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))

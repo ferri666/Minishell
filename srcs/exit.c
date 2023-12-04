@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:01:36 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/21 11:13:53 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:08:53 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	free_cmds(t_cmd **cmds, int ncmds)
 			ft_free_matrix((void **)cmds[i]->output);
 		if (cmds[i]->args)
 			ft_free_matrix((void **)cmds[i]->args);
-		free(cmds[i]->command);
+		if (cmds[i]->command)
+			free(cmds[i]->command);
 		if (cmds[i]->in_redir_type)
 			free(cmds[i]->in_redir_type);
 		if (cmds[i]->out_redir_type)

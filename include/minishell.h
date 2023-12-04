@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 18:33:05 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:13:48 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,7 @@ void	ft_echo(char **args);
 void	ft_exit(t_minsh *msh, t_cmd *cmd);
 void	ft_pwd(void);
 void	ft_cd(char **args);
+
+/*debug*/
+void	leaks(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 18:46:04 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:29:09 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int argc, char **argv, char **env)
 	char	linea[1000];
 	t_minsh	*msh;
 	int		fd[2];
+	int		exit_s;
 
 	if (argc != 1)
 		printf ("%s\n", argv[1]);
@@ -95,9 +96,9 @@ int	main(int argc, char **argv, char **env)
 		close(fd[1]);
 		//leaks();
 	}
+	exit_s = msh->exit_code;
 	free(msh);
-	leaks();
-	exit (msh->exit_code);
+	exit(exit_s);
 }
 
 

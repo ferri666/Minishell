@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/12 16:58:55 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 10:49:30 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:09:25 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ t_cmd	*new_cmd(char *str)
 	new->in_redir_type = NULL;
 	new->out_redir_type = NULL;
 	new->next_cmd = NULL;
+	new->command = NULL;
 	return (new);
 }
