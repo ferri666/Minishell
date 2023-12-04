@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 18:41:08 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:46:04 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	free(msh);
 	leaks();
-	return (0);
+	exit (msh->exit_code);
 }
 
 
