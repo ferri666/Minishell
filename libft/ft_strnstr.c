@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 15:18:29 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/03/09 11:41:43 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/01 13:19:30 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*ft_strnstr(const char *str, const char *to_find, size_t len)
 		{
 			while ((*(str + n + p) == *(to_find + p)) && (n + p < lenght)
 				&& (*(str + n + p)))
-			{	
+			{
 				if (*(to_find + p + 1) == 0)
 					return ((char *)(str + n));
 				p++;

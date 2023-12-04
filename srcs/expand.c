@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:55:08 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 16:09:00 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:49:37 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*eliminate_quotes(char *st)
 	char			*ret;
 	int				n_quo;
 
-	n_quo = n_quotes(st);
+	n_quo = n_quotes(st) / 2;
 	ret = st;
 	if (n_quo == 0)
 		return (st);
@@ -37,6 +37,8 @@ char	*find_env(char **env, char *find, size_t len)
 
 	i = 0;
 
+	if (ft_strncmp(find, "?", 1) == 0)
+		return (ft_itoa(0));
 	while (env[i])
 	{
 		if (ft_strncmp(env[i], find, len) == 0)
@@ -61,7 +63,10 @@ char	*replace(char *cmd, char **env, size_t i)
 		&& !is_quote(*(cmd + i + j)))
 		j++;
 	subs[1] = ft_substr(cmd, i, j);
-	subs[2] = find_env(env, subs[1], ft_strlen(subs[1]));
+	if (ft_strlen(subs[1]) == 0)
+		subs[2] = ft_strdup("$");
+	else
+		subs[2] = find_env(env, subs[1], ft_strlen(subs[1]));
 	while (*(cmd + i + j + k) != '\0')
 		k++;
 	subs[3] = ft_substr(cmd, i + j, k);
@@ -85,7 +90,8 @@ char	*expand_this(char *str, char **env)
 		return (eliminate_quotes(str));
 	while (n--)
 	{
-		while (*(str + i) && *(str + i) != '$' && !flag)
+		while (*(str + i) && *(str + i) != '$'
+			&& (!flag || *(str + 1) == ' ' || *(str + 1) == ' '))
 		{
 			if (*(str + i) == '\'')
 				changeflag(*(str + i), &flag);

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/11/29 16:11:14 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:30:35 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,12 @@ void	execute_command(t_cmd *cmd, int infile, int outfile, char **env)
 	}
 }
 
-void	main_exec(t_cmd *cmd, char **env)
+void	main_exec(t_minsh *msh, char **env)
 {
-	int	pipefd[2];
+	t_cmd	*cmd;
+	int		pipefd[2];
 
+	cmd = msh->cmds[0];
 	while (cmd)
 	{
 		if (cmd->next_cmd)
@@ -111,7 +113,7 @@ void	main_exec(t_cmd *cmd, char **env)
 			cmd->outfile = STDOUT_FILENO;
 		if (is_builtin(cmd))
 		{
-			exec_builtin(cmd);
+			exec_builtin(msh, cmd);
 		}
 		else if (is_valid_command_in_path(cmd, env))
 		{

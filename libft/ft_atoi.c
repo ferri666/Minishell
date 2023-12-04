@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:49:39 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/03/09 11:41:43 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/01 13:20:46 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ft_atoi(const char *str)
 	{
 		if (str[n] == '-')
 			sign *= -1;
-			n++;
+		n++;
 	}
 	while (str[n] >= '0' && str[n] <= '9')
 	{

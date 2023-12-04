@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 15:24:33 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:33:05 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,14 @@ typedef struct s_cmd
 typedef struct s_minsh
 {
 	t_cmd	**cmds;
+	char	**env;
 	int		exit_code;
 	int		end_prog;
 }	t_minsh;
 
 
 /*   parse.c   */
-t_cmd	**parse(char *str);
+int		parse(char *str, t_minsh *msh);
 char	*closed_quotes(char *str);
 int		count_cmds(char *str);
 char	**commands(char *str, int ncmds);
@@ -92,15 +93,19 @@ int		ft_cw2(char const *s, char c);
 t_cmd	*new_cmd(char *str);
 
 
-/*exec + builtins*/
-void	main_exec(t_cmd *cmd, char **env);
-void	exec_builtin(t_cmd *cmd);
+/*exec */
+void	main_exec(t_minsh *msh, char **env);
+void	exec_builtin(t_minsh *msh, t_cmd *cmd);
 void	execute_command(t_cmd *cmd, int infile, int outfile, char **env);
 void	execute_command2(t_cmd *cmd, int infile, int outfile);
 int		is_builtin(t_cmd *cmd);
 char	*get_env_var(char *var, char **env);
 int		is_valid_command_in_path(t_cmd *cmd, char **env);
 size_t	ft_strarrlen(char **arr);
+
+/*  builtins  */
 void	ft_echo(char **args);
-void	ft_exit(t_cmd *cmd);
+void	ft_exit(t_minsh *msh, t_cmd *cmd);
+void	ft_pwd(void);
+void	ft_cd(char **args);
 #endif

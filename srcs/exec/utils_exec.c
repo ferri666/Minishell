@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/11/29 15:08:54 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:32:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	is_builtin(t_cmd *cmd)
 	return (0);
 }
 
-void	exec_builtin(t_cmd *cmd)
+void	exec_builtin(t_minsh *msh, t_cmd *cmd)
 {
 	// Ejecuta el comando interno correspondiente
 	if (!ft_strncmp(cmd->command, "echo", 4))
 		ft_echo(cmd->args);
 	else if (!ft_strncmp(cmd->command, "cd", 2))
-		printf("builtin\n");
+		ft_cd(cmd->args);
 	else if (!ft_strncmp(cmd->command, "pwd", 3))
-		printf("builtin\n");
+		ft_pwd();
 	else if (!ft_strncmp(cmd->command, "export", 6))
 		printf("builtin\n");
 	else if (!ft_strncmp(cmd->command, "unset", 5))
@@ -43,7 +43,7 @@ void	exec_builtin(t_cmd *cmd)
 	else if (!ft_strncmp(cmd->command, "env", 3))
 		printf("builtin\n");
 	else if (!ft_strncmp(cmd->command, "exit", 4))
-		ft_exit(cmd);
+		ft_exit(msh, cmd);
 }
 
 char	*get_env_var(char *var, char **env)

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/20 14:14:15 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:27:13 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,25 +94,23 @@ int	count_cmds(char *str)
 	return (n);
 }
 
-t_cmd	**parse(char *str)
+int	parse(char *str, t_minsh *msh)
 {
-	t_cmd	**cmd;
 	int		ncmds;
 
 	if (check_errors(str))
-		return (NULL);
+		return (1);
 	ncmds = count_cmds(str);
 	if (ncmds > MAXCMD)
 	{
 		ft_error("MShell: 👮🛑 STOP! That's too many commands!\n");
-		return (NULL);
+		return (1);
 	}
 	else if (ncmds == 0)
-		return (NULL);
+		return (0);
 	else
 	{
-		cmd = parsecmd(str, ncmds);
-		return (cmd);
+		msh->cmds = parsecmd(str, ncmds);
+		return (0);
 	}
-	return (NULL);
 }

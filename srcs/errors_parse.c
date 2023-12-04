@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 16:19:00 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:55:45 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	check_quotes(char *str)
 		}
 		str++;
 	}
-	ft_error ("MShell: ¡You didn't close your quotes you DingDong!\n");
+	if (open)
+		ft_error ("MShell: 😡 ¡You didn't close your quotes you DingDong!\n");
 	return (open);
 }
 

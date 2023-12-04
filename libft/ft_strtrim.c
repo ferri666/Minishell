@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 11:54:05 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/03/09 11:41:43 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/01 13:47:07 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*str;
 	size_t	len;
 
-	if (!s1 || !set)
+	if (!s1 || !set || ft_strlen(s1) == 0 || ft_strlen(set) == 0)
 		return (NULL);
 	len = calc_len(s1, set);
 	if (len > 0)

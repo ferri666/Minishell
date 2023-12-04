@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:14:16 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 16:08:21 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:12:47 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ char	*quolim(char *st, size_t len)
 	while ((i + j) < len && *(st + i + j) != quo)
 		j++;
 	sub_st[1] = ft_substr(st, i, j);
-	sub_st[2] = ft_substr(st, j + 2, len - i - j - 1);
+	sub_st[2] = ft_substr(st, i + j + 1, len - i - j);
 	sub_st[3] = ft_strjoin(sub_st[0], sub_st[1]);
 	sub_st[4] = ft_strjoin(sub_st[3], sub_st[2]);
-
 	free (st);
-	st = sub_st[4];
+	st = ft_strdup(sub_st[4]);
 	free_this(sub_st);
 	i = 0;
 	return (st);
@@ -54,10 +53,8 @@ int	n_expands(char *line)
 	{
 		if (*line == '\'')
 			changeflag(*line, &flag);
-		if (*line == '$' && !flag)
-		{
+		if (*line == '$' && (!flag || *(line + 1) == ' ' || *(line + 1) == ' '))
 			n++;
-		}
 		line++;
 	}
 	return (n);
@@ -101,4 +98,6 @@ void	free_this(char *this[5])
 		free(this[2]);
 	if (this[3])
 		free(this[3]);
+	if (this[4])
+		free(this[4]);
 }

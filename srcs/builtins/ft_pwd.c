@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:16:21 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/02 17:00:37 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/12/01 11:51:19 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/12/04 16:52:17 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,12 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_echo(char **args)
+void	ft_pwd(void)
 {
-	int	i;
-	int	flag;
+	char	*cwd;
 
-	i = 1;
-	flag = 0;
-	while (args[i])
-	{
-		if (ft_strncmp(args[i], "-n", 2) == 0)
-		{
-			flag = 1;
-			i++;
-			continue ;
-		}
-		printf("%s ", args[i]);
-		i++;
-	}
-	if (!flag)
-		printf("\n");
+	cwd = ft_calloc(MAXPATHLEN, sizeof(char));
+	getcwd(cwd, MAXPATHLEN);
+	printf("%s", cwd);
+	free(cwd);
 }

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 14:42:47 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/20 14:42:48 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:07:43 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 #include "libft.h"
 #include "colors.h"
 
-void ft_cd(char **args)
+void	ft_cd(char **args)
 {
-    (void)args;
-    printf("cd builtin");
+	if (args)
+	{
+		chdir(args[1]);
+	}
 }
