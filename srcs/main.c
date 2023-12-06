@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 15:31:34 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/06 15:42:19 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	leaks(void)
 
 void	logo(void)
 {
-	ft_putendl_fd("***************************", 1);
+	ft_putendl_fd(BYEL "***************************", 1);
 	ft_putendl_fd("* _____ _____ _       _ _ *", 1);
 	ft_putendl_fd("*|     |   __| |_ ___| | |*", 1);
 	ft_putendl_fd("*| | | |__   |   | -_| | |*", 1);
 	ft_putendl_fd("*|_|_|_|_____|_|_|___|_|_|*", 1);
-	ft_putendl_fd("***************************", 1);
+	ft_putendl_fd("***************************" CRESET, 1);
+	ft_putendl_fd("by "BCYN"@ffons-ti "CRESET"& "BCYN"@vpeinado" CRESET, 1);
+	ft_putendl_fd("", 1);
 }
 
 int	init(t_minsh *min, char **env)
