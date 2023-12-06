@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/04 18:32:54 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:21:02 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@ int	is_builtin(t_cmd *cmd)
 		|| !ft_strncmp(cmd->command, "unset", 5)
 		|| !ft_strncmp(cmd->command, "env", 3)
 		|| !ft_strncmp(cmd->command, "exit", 4))
-		return (1);
+			return (1);
 	return (0);
 }
 
 void	exec_builtin(t_minsh *msh, t_cmd *cmd)
 {
-	// Ejecuta el comando interno correspondiente
 	if (!ft_strncmp(cmd->command, "echo", 4))
 		ft_echo(cmd->args);
 	else if (!ft_strncmp(cmd->command, "cd", 2))

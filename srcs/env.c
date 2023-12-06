@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:16:21 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/05 17:40:34 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/12/05 10:11:33 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/12/05 10:16:12 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_echo(char **args)
+char	**env_cpy(char **env)
 {
-	int	i;
-	int	flag;
+	char	**copy;
+	int		i;
 
-	i = 1;
-	flag = 0;
-	while (args[i])
+	copy = ft_calloc(ft_strarrlen(env) + 1, sizeof(char *));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (env[i])
 	{
-		if (ft_strncmp(args[i], "-n", 2) == 0)
+		copy[i] = ft_strdup(env[i]);
+		if (!copy[i])
 		{
-			flag = 1;
-			i++;
-			continue ;
+			ft_free_matrix((void **)copy);
+			return (NULL);
 		}
-		printf("%s ", args[i]);
 		i++;
 	}
-	if (!flag)
-		printf("\n");
+	return (copy);
 }

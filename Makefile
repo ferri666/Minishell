@@ -6,14 +6,14 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/04 19:07:55 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/12/05 10:15:23 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
 SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections split_args cmd \
-					expand expand_utils
+					expand expand_utils env
 EXEC_FILES		= main_exec utils_exec
 BUILT_FILES		= ft_cd ft_echo ft_exit ft_pwd
 SRC_DIR			= srcs/

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/11/29 10:57:28 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 11:23:31 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,14 @@ void	changeflag(char c, int *flag)
 		*flag = 0;
 }
 
-char	*closed_quotes(char *str)
+size_t	ft_strarrlen(char **arr)
 {
-	char	quo;
+	size_t	len;
 
-	quo = *str;
-	while (*str != quo && *str)
-		str++;
-	if (*str == '\0')
-	{
-		printf ("MShell: ¡You didn't close your quotes you DingDong!\n");
-		return (0);
-	}
-	else
-		return (str);
+	len = 0;
+	while (arr[len])
+		len++;
+	return (len);
 }
 
 void	ft_error(char *str)

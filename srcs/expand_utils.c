@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:14:16 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 17:12:47 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 11:24:26 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*quolim(char *st, size_t len)
 	i = 0;
 	return (st);
 }
-
 
 int	n_expands(char *line)
 {

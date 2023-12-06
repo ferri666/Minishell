@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 19:13:48 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 14:53:11 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_cmd
 	int				outfile;
 	char			*command;
 	char			**args;
-	char			*out_redir_type;
-	char			*in_redir_type;
+	char			**out_redir_type;
+	char			**in_redir_type;
 	struct s_cmd	*next_cmd;
 }	t_cmd;
 
@@ -44,10 +44,8 @@ typedef struct s_minsh
 	int		end_prog;
 }	t_minsh;
 
-
 /*   parse.c   */
 int		parse(char *str, t_minsh *msh);
-char	*closed_quotes(char *str);
 int		count_cmds(char *str);
 char	**commands(char *str, int ncmds);
 
@@ -92,9 +90,11 @@ int		ft_cw2(char const *s, char c);
 /* cmd.c */
 t_cmd	*new_cmd(char *str);
 
+/* env.c*/
+char	**env_cpy(char **env);
 
 /*exec */
-void	main_exec(t_minsh *msh, char **env);
+void	main_exec(t_minsh *msh);
 void	exec_builtin(t_minsh *msh, t_cmd *cmd);
 void	execute_command(t_cmd *cmd, int infile, int outfile, char **env);
 void	execute_command2(t_cmd *cmd, int infile, int outfile);

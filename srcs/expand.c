@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:55:08 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 17:49:37 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 11:24:12 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*eliminate_quotes(char *st)
 	char			*ret;
 	int				n_quo;
 
-	n_quo = n_quotes(st) / 2;
+	n_quo = n_quotes(st);
 	ret = st;
 	if (n_quo == 0)
 		return (st);
@@ -36,7 +36,6 @@ char	*find_env(char **env, char *find, size_t len)
 	int	i;
 
 	i = 0;
-
 	if (ft_strncmp(find, "?", 1) == 0)
 		return (ft_itoa(0));
 	while (env[i])

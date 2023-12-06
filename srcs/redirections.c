@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 19:45:39 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 15:16:36 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,13 @@ char	*ex_input(char *str, t_cmd *c, int i)
 	int	flag;
 
 	flag = 0;
-	if (c->in_redir_type)
-		free (c->in_redir_type);
 	if (*++str == '<')
 	{
-		c->in_redir_type = ft_strdup("<<");
+		c->in_redir_type[i] = ft_strdup("<<");
 		str++;
 	}
 	else
-		c->in_redir_type = ft_strdup("<");
+		c->in_redir_type[i] = ft_strdup("<");
 	while (*str && is_blank(*str))
 		str++;
 	if (*str != '>' || *str != '<')
@@ -76,15 +74,13 @@ char	*ex_output(char *str, t_cmd *c, int i)
 	int	flag;
 
 	flag = 0;
-	if (c->out_redir_type)
-		free (c->out_redir_type);
 	if (*++str == '>')
 	{
-		c->out_redir_type = ft_strdup(">>");
+		c->out_redir_type[i] = ft_strdup(">>");
 		str++;
 	}
 	else
-		c->out_redir_type = ft_strdup(">");
+		c->out_redir_type[i] = ft_strdup(">");
 	while (*str && is_blank(*str))
 		str++;
 	if (*str != '<' || *str != '>')

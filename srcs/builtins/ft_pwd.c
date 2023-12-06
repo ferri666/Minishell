@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:19 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/04 16:52:17 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:40:30 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ void	ft_pwd(void)
 
 	cwd = ft_calloc(MAXPATHLEN, sizeof(char));
 	getcwd(cwd, MAXPATHLEN);
-	printf("%s", cwd);
+	printf("%s\n", cwd);
 	free(cwd);
 }
