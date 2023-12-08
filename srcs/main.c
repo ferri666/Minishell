@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/06 15:42:19 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:21:26 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	init(t_minsh *min, char **env)
 	min->env = env_cpy(env);
 	min->end_prog = 1;
 	min->exit_code = 0;
+	min->exit_status = 0;
 	return (0);
 }
 
@@ -70,7 +71,6 @@ int	main(int argc, char **argv, char **env)
 {
 	char	linea[1000];
 	t_minsh	*msh;
-	int		fd[2];
 	int		exit_s;
 
 	if (argc != 1)
@@ -81,22 +81,16 @@ int	main(int argc, char **argv, char **env)
 		exit(1);
 	while (msh->end_prog)
 	{
-		fd[0] = dup(0);
-		fd[1] = dup(1);
 		if (input(linea))
 			continue ;
 		if (parse(linea, msh))
 			break ;
 		if (msh->cmds)
 		{
-			msh->cmds = expand_all(msh->cmds, count_cmds(linea), env);
+			msh->cmds = expand_all(msh->cmds, count_cmds(linea), msh);
 			main_exec(msh);
 			free_cmds(msh->cmds, count_cmds(linea));
 		}
-		dup2(fd[0], 0);
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
 	}
 	exit_s = msh->exit_code;
 	ft_free_matrix((void **)msh->env);

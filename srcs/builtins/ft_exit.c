@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:14:41 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/06 15:33:35 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:18:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ int	n_spaces(const char *str)
 	return (n);
 }
 
+/*
+Atoi specialized for the minishell.
+*/
 int	ft_atoi3(const char *str)
 {
 	int					sign;

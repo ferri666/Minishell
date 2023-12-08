@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/05 17:21:02 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:16:49 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 #include "libft.h"
 #include "colors.h"
 
-int	is_builtin(t_cmd *cmd)
+int	is_builtin2(t_cmd *cmd)
 {
 	if (!ft_strncmp(cmd->command, "echo", 4)
-		|| !ft_strncmp(cmd->command, "cd", 2)
 		|| !ft_strncmp(cmd->command, "pwd", 3)
+		|| !ft_strncmp(cmd->command, "env", 3))
+			return (1);
+	return (0);
+}
+
+int	is_builtin1(t_cmd *cmd)
+{
+	if (!ft_strncmp(cmd->command, "cd", 2)
 		|| !ft_strncmp(cmd->command, "export", 6)
 		|| !ft_strncmp(cmd->command, "unset", 5)
-		|| !ft_strncmp(cmd->command, "env", 3)
 		|| !ft_strncmp(cmd->command, "exit", 4))
 			return (1);
 	return (0);

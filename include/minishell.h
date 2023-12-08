@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 14:53:11 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/06 17:17:09 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/param.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 typedef struct s_cmd
 {
@@ -41,6 +43,7 @@ typedef struct s_minsh
 	t_cmd	**cmds;
 	char	**env;
 	int		exit_code;
+	int		exit_status;
 	int		end_prog;
 }	t_minsh;
 
@@ -65,7 +68,7 @@ char	*ex_output(char *str, t_cmd *c, int i);
 char	*ex_arg(char *str, t_cmd *c, int i);
 
 /*   expand.c  */
-t_cmd	**expand_all(t_cmd **cmd, int n_cmds, char **env);
+t_cmd	**expand_all(t_cmd **cmd, int n_cmds, t_minsh *msh);
 
 /*   expand_utils.c  */
 int		n_expands(char *line);
@@ -96,9 +99,8 @@ char	**env_cpy(char **env);
 /*exec */
 void	main_exec(t_minsh *msh);
 void	exec_builtin(t_minsh *msh, t_cmd *cmd);
-void	execute_command(t_cmd *cmd, int infile, int outfile, char **env);
-void	execute_command2(t_cmd *cmd, int infile, int outfile);
-int		is_builtin(t_cmd *cmd);
+int		is_builtin1(t_cmd *cmd);
+int		is_builtin2(t_cmd *cmd);
 char	*get_env_var(char *var, char **env);
 int		is_valid_command_in_path(t_cmd *cmd, char **env);
 size_t	ft_strarrlen(char **arr);

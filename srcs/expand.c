@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:55:08 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 11:24:12 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/06 16:38:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,23 @@ char	*eliminate_quotes(char *st)
 	return (st);
 }
 
-char	*find_env(char **env, char *find, size_t len)
+char	*find_env(t_minsh *msh, char *find, size_t len)
 {
 	int	i;
 
 	i = 0;
 	if (ft_strncmp(find, "?", 1) == 0)
-		return (ft_itoa(0));
-	while (env[i])
+		return (ft_itoa(msh->exit_code));
+	while (msh->env[i])
 	{
-		if (ft_strncmp(env[i], find, len) == 0)
-			return (extract_env(env[i]));
+		if (ft_strncmp(msh->env[i], find, len) == 0)
+			return (extract_env(msh->env[i]));
 		i++;
 	}
 	return (NULL);
 }
 
-char	*replace(char *cmd, char **env, size_t i)
+char	*replace(char *cmd, t_minsh *msh, size_t i)
 {
 	char	*subs[5];
 	char	*ret;
@@ -65,7 +65,7 @@ char	*replace(char *cmd, char **env, size_t i)
 	if (ft_strlen(subs[1]) == 0)
 		subs[2] = ft_strdup("$");
 	else
-		subs[2] = find_env(env, subs[1], ft_strlen(subs[1]));
+		subs[2] = find_env(msh, subs[1], ft_strlen(subs[1]));
 	while (*(cmd + i + j + k) != '\0')
 		k++;
 	subs[3] = ft_substr(cmd, i + j, k);
@@ -75,7 +75,7 @@ char	*replace(char *cmd, char **env, size_t i)
 	return (ret);
 }
 
-char	*expand_this(char *str, char **env)
+char	*expand_this(char *str, t_minsh *msh)
 {
 	size_t	i;
 	int		n;
@@ -96,7 +96,7 @@ char	*expand_this(char *str, char **env)
 				changeflag(*(str + i), &flag);
 			i++;
 		}
-		ret = replace (str, env, i);
+		ret = replace (str, msh, i);
 		free (str);
 		str = ret;
 		i = 0;
@@ -104,7 +104,7 @@ char	*expand_this(char *str, char **env)
 	return (eliminate_quotes(str));
 }
 
-t_cmd	**expand_all(t_cmd **cmd, int n_cmds, char **env)
+t_cmd	**expand_all(t_cmd **cmd, int n_cmds, t_minsh *msh)
 {
 	int	i;
 	int	j;
@@ -114,14 +114,14 @@ t_cmd	**expand_all(t_cmd **cmd, int n_cmds, char **env)
 	{
 		j = -1;
 		while (cmd[i]->input[++j])
-			cmd[i]->input[j] = expand_this(cmd[i]->input[j], env);
+			cmd[i]->input[j] = expand_this(cmd[i]->input[j], msh);
 		j = -1;
 		while (cmd[i]->output[++j])
-			cmd[i]->output[j] = expand_this(cmd[i]->output[j], env);
+			cmd[i]->output[j] = expand_this(cmd[i]->output[j], msh);
 		j = -1;
 		while (cmd[i]->args[++j])
-			cmd[i]->args[j] = expand_this(cmd[i]->args[j], env);
-		cmd[i]->command = expand_this(cmd[i]->command, env);
+			cmd[i]->args[j] = expand_this(cmd[i]->args[j], msh);
+		cmd[i]->command = expand_this(cmd[i]->command, msh);
 	}
 	return (cmd);
 }
