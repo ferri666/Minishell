@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/06 17:16:49 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:51:25 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,38 @@
 
 int	is_builtin2(t_cmd *cmd)
 {
-	if (!ft_strncmp(cmd->command, "echo", 4)
-		|| !ft_strncmp(cmd->command, "pwd", 3)
-		|| !ft_strncmp(cmd->command, "env", 3))
-			return (1);
+	if (!ft_strncmp(cmd->command, "echo", 5)
+		|| !ft_strncmp(cmd->command, "pwd", 4)
+		|| !ft_strncmp(cmd->command, "env", 4))
+		return (1);
 	return (0);
 }
 
 int	is_builtin1(t_cmd *cmd)
 {
-	if (!ft_strncmp(cmd->command, "cd", 2)
-		|| !ft_strncmp(cmd->command, "export", 6)
-		|| !ft_strncmp(cmd->command, "unset", 5)
-		|| !ft_strncmp(cmd->command, "exit", 4))
-			return (1);
+	if (!ft_strncmp(cmd->command, "cd", 3)
+		|| !ft_strncmp(cmd->command, "export", 7)
+		|| !ft_strncmp(cmd->command, "unset", 6)
+		|| !ft_strncmp(cmd->command, "exit", 5))
+		return (1);
 	return (0);
 }
 
 void	exec_builtin(t_minsh *msh, t_cmd *cmd)
 {
-	if (!ft_strncmp(cmd->command, "echo", 4))
+	if (!ft_strncmp(cmd->command, "echo", 5))
 		ft_echo(cmd->args);
-	else if (!ft_strncmp(cmd->command, "cd", 2))
+	else if (!ft_strncmp(cmd->command, "cd", 3))
 		ft_cd(cmd->args);
-	else if (!ft_strncmp(cmd->command, "pwd", 3))
+	else if (!ft_strncmp(cmd->command, "pwd", 4))
 		ft_pwd();
-	else if (!ft_strncmp(cmd->command, "export", 6))
-		printf("builtin\n");
-	else if (!ft_strncmp(cmd->command, "unset", 5))
-		printf("builtin\n");
-	else if (!ft_strncmp(cmd->command, "env", 3))
-		printf("builtin\n");
-	else if (!ft_strncmp(cmd->command, "exit", 4))
+	else if (!ft_strncmp(cmd->command, "export", 7))
+		ft_export(msh, cmd);
+	else if (!ft_strncmp(cmd->command, "unset", 6))
+		ft_unset(msh, cmd);
+	else if (!ft_strncmp(cmd->command, "env", 4))
+		ft_env(msh);
+	else if (!ft_strncmp(cmd->command, "exit", 5))
 		ft_exit(msh, cmd);
 }
 

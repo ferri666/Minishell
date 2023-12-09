@@ -6,19 +6,20 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/05 10:15:23 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/12/09 17:00:01 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= main parse utils commands exit errors_parse parse_utils redirections split_args cmd \
-					expand expand_utils env
+SRC_FILES		= main exit env utils
 EXEC_FILES		= main_exec utils_exec
-BUILT_FILES		= ft_cd ft_echo ft_exit ft_pwd
+BUILT_FILES		= ft_cd ft_echo ft_exit ft_pwd ft_export ft_env ft_unset
+PARSE_FILES		= parse parse_utils errors_parse expand expand_utils split_args commands redirections
 SRC_DIR			= srcs/
 EXEC_DIR		= $(SRC_DIR)exec/
 BUILT_DIR		= $(SRC_DIR)builtins/
+PARSE_DIR		= $(SRC_DIR)parse/
 OBJ_DIR			= objs/
 LIBFT_DIR		= libft/
 LIBFT			= $(LIBFT_DIR)libft.a
@@ -26,7 +27,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -g3 #-fsanitize=address 
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -g3 -fsanitize=address 
 OFLAGS			= -lreadline
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -35,8 +36,10 @@ EXEC_SRC 		= 	$(addprefix $(EXEC_DIR), $(addsuffix .c, $(EXEC_FILES)))
 EXEC_OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(EXEC_FILES)))
 BUILT_SRC 		= 	$(addprefix $(BUILT_DIR), $(addsuffix .c, $(BUILT_FILES)))
 BUILT_OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(BUILT_FILES)))
+PARSE_SRC 		= 	$(addprefix $(PARSE_DIR), $(addsuffix .c, $(PARSE_FILES)))
+PARSE_OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(PARSE_FILES)))
 
-$(NAME)			:	$(OBJ) $(EXEC_OBJ) $(BUILT_OBJ) $(LIBFT)
+$(NAME)			:	$(OBJ) $(EXEC_OBJ) $(BUILT_OBJ) $(PARSE_OBJ) $(LIBFT)
 					@$(CC) $(CFLAGS) $(OFLAGS) $^ -o $@
 					@echo "Program Created"
 
@@ -51,6 +54,10 @@ $(OBJ_DIR)%.o	: 	$(EXEC_DIR)%.c
 					@$(CC) $(CFLAGS) -o $@ -c $^
 
 $(OBJ_DIR)%.o	: 	$(BUILT_DIR)%.c
+					@mkdir -p $(OBJ_DIR)
+					@$(CC) $(CFLAGS) -o $@ -c $^
+					
+$(OBJ_DIR)%.o	: 	$(PARSE_DIR)%.c
 					@mkdir -p $(OBJ_DIR)
 					@$(CC) $(CFLAGS) -o $@ -c $^
 

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:14:41 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/06 17:18:34 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:19:47 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	ft_atoi3(const char *str)
 	}
 	if (n > 19 || str[n] || num > LONG_MAX)
 	{
-		printf(BRED"MShell: exit:"CRESET" %s numeric argument required\n", str);
+		printf(BRED"MShell: "CRESET"exit: %s is not a valid number\n", str);
 		return (255);
 	}
 	return (sign * num);
@@ -58,9 +58,21 @@ int	ft_atoi3(const char *str)
 
 void	ft_exit(t_minsh *msh, t_cmd *cmd)
 {
-	if (cmd->args[1])
-		msh->exit_code = ft_atoi3(cmd->args[1]);
-	else
-		msh->exit_code = 0;
-	msh->end_prog = 0;
+	if (!cmd->next_cmd)
+	{
+		if (cmd->n_args > 2)
+		{
+			ft_error("exit: too many arguments\n");
+			msh->exit_code = 1;
+		}
+		else
+		{
+			if (cmd->n_args == 2)
+				msh->exit_code = ft_atoi3(cmd->args[1]);
+			else if (cmd->n_args == 0)
+				msh->exit_code = 0;
+			msh->end_prog = 0;
+			printf(BGRN"¡¡Bye, Bye!! 👋😊" BRED "❤️\e[0m\n");
+		}
+	}
 }

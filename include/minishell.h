@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/06 17:17:09 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:54:32 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/param.h>
+# include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <dirent.h>
 
 typedef struct s_cmd
 {
@@ -35,6 +37,7 @@ typedef struct s_cmd
 	char			**args;
 	char			**out_redir_type;
 	char			**in_redir_type;
+	int				n_args;
 	struct s_cmd	*next_cmd;
 }	t_cmd;
 
@@ -50,7 +53,7 @@ typedef struct s_minsh
 /*   parse.c   */
 int		parse(char *str, t_minsh *msh);
 int		count_cmds(char *str);
-char	**commands(char *str, int ncmds);
+
 
 /*   parse_utils.c   */
 int		triple_pipe(const char *line);
@@ -92,9 +95,13 @@ int		ft_cw2(char const *s, char c);
 
 /* cmd.c */
 t_cmd	*new_cmd(char *str);
+char	**commands(char *str, int ncmds);
 
 /* env.c*/
-char	**env_cpy(char **env);
+char	**env_cpy(char **env, size_t len);
+char	**env_add(char **env, char *str);
+int		in_env(char **env, char *str);
+size_t	equal(char *str);
 
 /*exec */
 void	main_exec(t_minsh *msh);
@@ -110,6 +117,9 @@ void	ft_echo(char **args);
 void	ft_exit(t_minsh *msh, t_cmd *cmd);
 void	ft_pwd(void);
 void	ft_cd(char **args);
+void	ft_env(t_minsh *msh);
+void	ft_export(t_minsh *msh, t_cmd *cmd);
+void	ft_unset(t_minsh *msh, t_cmd	*cmd);
 
 /*debug*/
 void	leaks(void);

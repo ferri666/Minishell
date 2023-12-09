@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 15:16:03 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:35:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_cmd	**parsecmd(char *str, int ncmds)
 		{
 			free_cmds(cmds, i + 1);
 			ft_free_matrix((void **)stcom);
-			ft_error("MShell: syntax error 😱\n");
+			ft_error("syntax error 😱\n");
 			leaks();
 			return (NULL);
 		}
@@ -104,7 +104,7 @@ int	parse(char *str, t_minsh *msh)
 	ncmds = count_cmds(str);
 	if (ncmds > MAXCMD)
 	{
-		ft_error("MShell: 👮🛑 STOP! That's too many commands!\n");
+		ft_error("👮🛑 STOP! That's too many commands!\n");
 		return (0);
 	}
 	else if (ncmds == 0)

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/06 17:24:37 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/08 15:04:05 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void *child_redir(t_cmd *cmd, int fd[2])
 	{
 		if (dup2(cmd->infile, STDIN_FILENO) == -1) // Duplica el descriptor de archivo de entrada al descriptor de archivo estándar de entrada
 		{
+			ft_error("");
 			perror("dup2");
 			return (NULL);
 		}
@@ -30,6 +31,7 @@ static void *child_redir(t_cmd *cmd, int fd[2])
 	{
 		if (dup2(cmd->outfile, STDOUT_FILENO) == -1) // Duplica el descriptor de archivo de salida al descriptor de archivo estándar de salida
 		{
+			ft_error("");
 			perror("dup2");
 			return (NULL);
 		}
@@ -37,6 +39,7 @@ static void *child_redir(t_cmd *cmd, int fd[2])
 	}
 	else if (cmd->next_cmd && dup2(fd[STDOUT_FILENO], cmd->outfile) == -1)
 	{
+		ft_error("");
 		perror("dup2");
 		return (NULL);
 	}
@@ -48,19 +51,23 @@ void	*child_process(t_cmd *cmd, int fd[2], t_minsh *msh)
 {
 	child_redir(cmd, fd);
 	close(fd[STDIN_FILENO]);
-	if (is_valid_command_in_path(cmd, msh->env))
-		msh->exit_code = execve(cmd->command, cmd->args, msh->env);
-	else if (access(cmd->command, F_OK) == 0)
-		msh->exit_code = execve(cmd->command, cmd->args, msh->env);
-	else if (is_builtin2(cmd))
+	if (is_builtin2(cmd))
 		exec_builtin(msh, cmd);
 	else
 	{
-		printf(BRED "MShell: "CRESET"%s: command not found\n", cmd->command);
-		msh->exit_code = 127;
-		exit(127);
+		if (is_valid_command_in_path(cmd, msh->env))
+			msh->exit_code = execve(cmd->command, cmd->args, msh->env);
+		else if (access(cmd->command, F_OK) == 0)
+			msh->exit_code = execve(cmd->command, cmd->args, msh->env);
+		else
+		{
+			printf(BRED"MShell: "CRESET"%s: command not found\n", cmd->command);
+			msh->exit_code = 127;
+			exit(127);
+		}
+		ft_error("");
+		perror(cmd->command);
 	}
-	perror("execve");
 	exit(msh->exit_code);
 }
 
@@ -73,6 +80,7 @@ void	exec_fork(t_cmd *cmd, int fd[2], t_minsh *msh)
 	{
 		close(fd[STDIN_FILENO]);
 		close(fd[STDOUT_FILENO]);
+		ft_error("");
 		perror("fork");
 	}
 	else if (!pid)
@@ -91,6 +99,7 @@ static void	*exec_cmd(t_cmd *cmd, t_minsh *msh)
 
 	if (pipe(fd) == -1)
 	{
+		ft_error("");
 		perror("pipe");
 		return (NULL);
 	}
@@ -122,7 +131,10 @@ void open_files(t_cmd *cmd)
 			else if (!ft_strncmp(cmd->out_redir_type[i], ">", 1))
 				cmd->outfile = open(cmd->output[i], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			if (cmd->outfile == -1)
+			{
+				ft_error("");
 				perror("open");
+			}
 			i++;
 		}
 	}
@@ -136,7 +148,9 @@ void open_files(t_cmd *cmd)
 			else if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
 				printf("HEREDoc");
 			if (cmd->infile == -1)
+			{
 				perror("open");
+			}
 			i++;
 		}
 	}
@@ -152,7 +166,7 @@ void main_exec(t_minsh *msh)
 	cmd = msh->cmds[0];
 	fd[0] = dup(0);
 	fd[1] = dup(1);
-	while (cmd)
+	while (cmd && msh->end_prog)
 	{
 		cmd_count++;
 		if (cmd->input || cmd->output)

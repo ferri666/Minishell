@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 11:23:31 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:35:50 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ size_t	ft_strarrlen(char **arr)
 void	ft_error(char *str)
 {
 	ft_putstr_fd(BRED, 2);
-	ft_putstr_fd(str, 2);
+	ft_putstr_fd("MShell: ", 2);
 	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(str, 2);
 }

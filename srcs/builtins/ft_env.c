@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 14:42:47 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/08 13:35:54 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/12/08 14:53:13 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/12/08 15:00:58 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,14 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_cd(char **args)
+void	ft_env(t_minsh *msh)
 {
-	char		*path;
-	char		*path2;
-	char		*path3;
-	int			errno;
+	size_t	i;
 
-	if (args)
+	i = -1;
+	while (msh->env[++i])
 	{
-		path = ft_calloc(MAXPATHLEN, sizeof(char));
-		getcwd(path, MAXPATHLEN);
-		path2 = ft_strjoin(path, "/");
-		path3 = ft_strjoin(path2, args[1]);
-		errno = chdir(path3);
-		if (errno)
-		{
-			ft_error("");
-			perror("cd");
-		}
-		free(path);
-		free(path2);
-		free(path3);
+		if (ft_strchr(msh->env[i], '='))
+			printf("%s\n", msh->env[i]);
 	}
 }

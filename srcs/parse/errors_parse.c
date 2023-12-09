@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/01 12:55:45 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:35:21 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_quotes(char *str)
 		str++;
 	}
 	if (open)
-		ft_error ("MShell: 😡 ¡You didn't close your quotes you DingDong!\n");
+		ft_error ("😡 ¡You didn't close your quotes you DingDong!\n");
 	return (open);
 }
 
@@ -62,17 +62,17 @@ static int	check_pipe(const char *line)
 		return (1);
 	if (line[0] == '|')
 	{
-		ft_error("MShell: syntax error near '|'\n");
+		ft_error("syntax error near '|'\n");
 		return (1);
 	}
 	if (line[ft_strlen(line) - 1] == '|')
 	{
-		ft_error("MShell: syntax error near '|'\n");
+		ft_error("syntax error near '|'\n");
 		return (1);
 	}
 	if (check_pipe_bis(line))
 	{
-		ft_error("MShell: syntax error near '|'\n");
+		ft_error("syntax error near '|'\n");
 		return (1);
 	}
 	return (0);
@@ -84,17 +84,17 @@ static int	check_redirections(const char *line)
 	{
 		if (*line == '>' && *(line + 1) == '<')
 		{
-			ft_error("MShell: syntax error '><'\n");
+			ft_error("syntax error '><'\n");
 			return (1);
 		}
 		if (*line == '<' && *(line + 1) == '>')
 		{
-			ft_error("MShell: syntax error '<>'\n");
+			ft_error("syntax error '<>'\n");
 			return (1);
 		}
 		if (triple_pipe(line))
 		{
-			ft_error("MShell: syntax error 😉\n");
+			ft_error("syntax error 😉\n");
 			return (1);
 		}
 		line++;

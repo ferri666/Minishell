@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/06 17:21:26 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/08 14:20:11 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void	leaks(void)
 
 void	logo(void)
 {
-	ft_putendl_fd(BYEL "***************************", 1);
-	ft_putendl_fd("* _____ _____ _       _ _ *", 1);
-	ft_putendl_fd("*|     |   __| |_ ___| | |*", 1);
-	ft_putendl_fd("*| | | |__   |   | -_| | |*", 1);
-	ft_putendl_fd("*|_|_|_|_____|_|_|___|_|_|*", 1);
-	ft_putendl_fd("***************************" CRESET, 1);
+	ft_putendl_fd(BYEL "*****************************", 1);
+	ft_putendl_fd("** _____ _____ _       _ _ **", 1);
+	ft_putendl_fd("**|     |   __| |_ ___| | |**", 1);
+	ft_putendl_fd("**| | | |__   |   | -_| | |**", 1);
+	ft_putendl_fd("**|_|_|_|_____|_|_|___|_|_|**", 1);
+	ft_putendl_fd("*****************************" CRESET, 1);
 	ft_putendl_fd("by "BCYN"@ffons-ti "CRESET"& "BCYN"@vpeinado" CRESET, 1);
 	ft_putendl_fd("", 1);
 }
@@ -34,7 +34,7 @@ void	logo(void)
 int	init(t_minsh *min, char **env)
 {
 	min->cmds = NULL;
-	min->env = env_cpy(env);
+	min->env = env_cpy(env, ft_strarrlen(env));
 	min->end_prog = 1;
 	min->exit_code = 0;
 	min->exit_status = 0;
@@ -48,10 +48,10 @@ int	input(char *line)
 	if (line)
 		ft_bzero(line, 1000);
 	rl_on_new_line();
-	buf = readline("MShell $~ ");
+	buf = readline("\e[1;34mMShell\e[0m $~ ");
 	if (ft_strlen(buf) > 1000)
 	{
-		ft_error("MShell: 😱 That's too long!!! I'm not gonna remember that!\n");
+		ft_error("😱 That's too long!!! I'm not gonna remember that!\n");
 		free(buf);
 		return (1);
 	}
@@ -95,5 +95,6 @@ int	main(int argc, char **argv, char **env)
 	exit_s = msh->exit_code;
 	ft_free_matrix((void **)msh->env);
 	free(msh);
+	//leaks();
 	exit(exit_s);
 }
