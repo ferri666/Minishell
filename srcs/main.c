@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: vpeinado <victor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 15:31:34 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:27:36 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,18 @@ int	input(char *line)
 	return (1);
 }
 
+void	handle_sigint()
+{
+	printf("\n"); // to avoid the ^C on the prompt
+	rl_on_new_line(); // go to a newline
+	rl_replace_line("", 1); // delete the old text
+	rl_forced_update_display(); // force the new prompt
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	linea[1000];
 	t_minsh	*msh;
-	int		fd[2];
 	int		exit_s;
 
 	if (argc != 1)
@@ -79,8 +86,8 @@ int	main(int argc, char **argv, char **env)
 		exit(1);
 	while (msh->end_prog)
 	{
-		fd[0] = dup(0);
-		fd[1] = dup(1);
+		signal(SIGINT, handle_sigint);
+		signal(SIGQUIT, SIG_IGN); 
 		if (input(linea))
 			continue ;
 		if (parse(linea, msh))
@@ -91,10 +98,6 @@ int	main(int argc, char **argv, char **env)
 			main_exec(msh);
 			free_cmds(msh->cmds, count_cmds(linea));
 		}
-		dup2(fd[0], 0);
-		dup2(fd[1], 1);
-		close(fd[0]);
-		close(fd[1]);
 	}
 	exit_s = msh->exit_code;
 	ft_free_matrix((void **)msh->env);
