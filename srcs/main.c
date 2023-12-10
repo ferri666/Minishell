@@ -64,7 +64,7 @@ int	input(char *line)
 	return (1);
 }
 
-void	handle_sigint()
+void	re_sigint()
 {
 	printf("\n"); // to avoid the ^C on the prompt
 	rl_on_new_line(); // go to a newline
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 		exit(1);
 	while (msh->end_prog)
 	{
-		signal(SIGINT, handle_sigint);
+		signal(SIGINT, re_sigint);
 		signal(SIGQUIT, SIG_IGN); 
 		if (input(linea))
 			continue ;
