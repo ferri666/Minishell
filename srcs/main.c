@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/08 14:20:11 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:04:50 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void	logo(void)
 
 int	init(t_minsh *min, char **env)
 {
-	min->cmds = NULL;
+	if (!min)
+		return (1);
 	min->env = env_cpy(env, ft_strarrlen(env));
+	if (!min->env)
+		return (1);
+	min->cmds = NULL;
 	min->end_prog = 1;
 	min->exit_code = 0;
 	min->exit_status = 0;
@@ -43,11 +47,10 @@ int	init(t_minsh *min, char **env)
 
 int	input(char *line)
 {
-	char	*buf;
+	static char	*buf = NULL;
 
 	if (line)
 		ft_bzero(line, 1000);
-	rl_on_new_line();
 	buf = readline("\e[1;34mMShell\e[0m $~ ");
 	if (ft_strlen(buf) > 1000)
 	{
@@ -61,9 +64,11 @@ int	input(char *line)
 		ft_strlcpy(line, buf, ft_strlen(buf) + 1);
 		buf = ft_bzero(buf, ft_strlen(buf));
 		free(buf);
+		buf = NULL;
 		return (0);
 	}
 	free(buf);
+	buf = NULL;
 	return (1);
 }
 
@@ -83,11 +88,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		if (input(linea))
 			continue ;
-		if (parse(linea, msh))
-			break ;
+		parse(linea, msh);
 		if (msh->cmds)
 		{
-			msh->cmds = expand_all(msh->cmds, count_cmds(linea), msh);
 			main_exec(msh);
 			free_cmds(msh->cmds, count_cmds(linea));
 		}
@@ -95,6 +98,5 @@ int	main(int argc, char **argv, char **env)
 	exit_s = msh->exit_code;
 	ft_free_matrix((void **)msh->env);
 	free(msh);
-	//leaks();
 	exit(exit_s);
 }

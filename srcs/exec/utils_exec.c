@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/09 16:51:25 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:23:09 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,30 +72,27 @@ char	*get_env_var(char *var, char **env)
 int	is_valid_command_in_path(t_cmd *cmd, char **env)
 {
 	char	**path;
-	char	*tmp;
-	char	*tmp2;
+	char	*tmp[2];
 	int		i;
 
-	i = 0;
+	i = -1;
 	path = ft_split(get_env_var("PATH", env), ':');
 	if (!path)
 		return (0);
-	while (path[i])
+	while (path[++i])
 	{
-		tmp = ft_strjoin(path[i], "/");
-		tmp2 = ft_strjoin(tmp, cmd->command);
-		if (access(tmp2, F_OK) == 0)
+		tmp[0] = ft_strjoin(path[i], "/");
+		tmp[1] = ft_strjoin(tmp[0], cmd->command);
+		free(tmp[0]);
+		if (access(tmp[1], F_OK) == 0)
 		{
 			free (cmd->command);
-			cmd->command = ft_strdup(tmp2);
-			free(tmp);
-			free(tmp2);
+			cmd->command = ft_strdup(tmp[1]);
+			free(tmp[1]);
 			ft_free_matrix((void **)path);
 			return (1);
 		}
-		free(tmp);
-		free(tmp2);
-		i++;
+		free(tmp[1]);
 	}
 	ft_free_matrix((void **)path);
 	return (0);

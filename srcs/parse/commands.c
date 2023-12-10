@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:50:22 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 16:53:37 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:20:45 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ t_cmd	*new_cmd(char *str)
 	new = malloc (sizeof(t_cmd));
 	new->input = (char **)ft_calloc(sizeof(char *), n_input(str) + 1);
 	new->output = (char **)ft_calloc(sizeof(char *), n_output(str) + 1);
-	new->infile = STDIN_FILENO;
-	new->outfile = STDOUT_FILENO;
 	new->args = (char **)ft_calloc(sizeof(char *), ft_cw2(str, ' ') + 1);
 	new->in_redir_type = (char **)ft_calloc(sizeof(char *), n_input(str) + 1);
 	new->out_redir_type = (char **)ft_calloc(sizeof(char *), n_output(str) + 1);
+	new->infile = STDIN_FILENO;
+	new->outfile = STDOUT_FILENO;
 	new->next_cmd = NULL;
 	new->command = NULL;
 	new->n_args = ft_cw2(str, ' ');

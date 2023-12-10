@@ -6,13 +6,30 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 14:33:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 16:10:13 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:54:38 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 #include "colors.h"
+
+void	list_exenv(char **env)
+{
+	size_t	i;
+	char	*sub1;
+	char	*sub2;
+
+	i = -1;
+	while (env[++i])
+	{
+		sub1 = ft_substr(env[i], 0, equal(env[i]));
+		sub2 = ft_substr(env[i], equal(env[i]) + 1, ft_strlen(env[i]));
+		printf("declarse -x %s=\"%s\"\n", sub1, sub2);
+		free(sub1);
+		free(sub2);
+	}
+}
 
 void	ft_export(t_minsh *msh, t_cmd *c)
 {
@@ -35,4 +52,6 @@ void	ft_export(t_minsh *msh, t_cmd *c)
 				msh->env = env_add(msh->env, c->args[i]);
 		}
 	}
+	else
+		list_exenv(msh->env);
 }

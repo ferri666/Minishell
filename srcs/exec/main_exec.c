@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/08 15:04:05 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/10 17:33:30 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 #include "libft.h"
 #include "colors.h"
 
-static void *child_redir(t_cmd *cmd, int fd[2])
+static void	*child_redir(t_cmd *cmd, int fd[2])
 {
 	if (cmd->infile != STDIN_FILENO)
 	{
-		if (dup2(cmd->infile, STDIN_FILENO) == -1) // Duplica el descriptor de archivo de entrada al descriptor de archivo estándar de entrada
+		if (dup2(cmd->infile, STDIN_FILENO) == -1)
 		{
 			ft_error("");
 			perror("dup2");
 			return (NULL);
 		}
-		close(cmd->infile); // Cierra el descriptor de archivo de entrada original
+		close(cmd->infile);
 	}
-	// Redirige la salida estándar si se especifica un descriptor de archivo de salida diferente a STDOUT_FILENO
 	if (cmd->outfile != STDOUT_FILENO)
 	{
-		if (dup2(cmd->outfile, STDOUT_FILENO) == -1) // Duplica el descriptor de archivo de salida al descriptor de archivo estándar de salida
+		if (dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		{
 			ft_error("");
 			perror("dup2");
 			return (NULL);
 		}
-		close(cmd->outfile); // Cierra el descriptor de archivo de salida original
+		close(cmd->outfile);
 	}
 	else if (cmd->next_cmd && dup2(fd[STDOUT_FILENO], cmd->outfile) == -1)
 	{
@@ -43,7 +42,7 @@ static void *child_redir(t_cmd *cmd, int fd[2])
 		perror("dup2");
 		return (NULL);
 	}
-	close(fd[STDOUT_FILENO]); // Cierra el descriptor de archivo de salida de la tubería
+	close(fd[STDOUT_FILENO]);
 	return ("");
 }
 
@@ -163,6 +162,8 @@ void main_exec(t_minsh *msh)
 	int		fd[2];
 
 	cmd_count = 0;
+	if (!msh->cmds)
+		return ;
 	cmd = msh->cmds[0];
 	fd[0] = dup(0);
 	fd[1] = dup(1);

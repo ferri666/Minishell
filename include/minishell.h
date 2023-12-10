@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 16:54:32 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/10 18:18:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct s_minsh
 int		parse(char *str, t_minsh *msh);
 int		count_cmds(char *str);
 
-
 /*   parse_utils.c   */
 int		triple_pipe(const char *line);
 int		is_redirection(const char *c);
@@ -63,7 +62,7 @@ int		n_output(char *line);
 int		n_input(char *line);
 
 /*   errors_parse.c   */
-int		check_errors(char *str);
+int		check_errors(char *str, t_minsh *msh);
 
 /*   redirections.c  */
 char	*ex_input(char *str, t_cmd *c, int i);
@@ -123,4 +122,5 @@ void	ft_unset(t_minsh *msh, t_cmd	*cmd);
 
 /*debug*/
 void	leaks(void);
+
 #endif

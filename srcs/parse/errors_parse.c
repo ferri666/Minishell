@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/08 13:35:21 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/10 20:57:45 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,21 @@
 
 static int	check_pipe_bis(const char *line)
 {
+	int	flag;
+
+	flag = 0;
 	while (*line)
 	{
-		if (*line == '|')
+		if (*line == '\'' || *line == '"')
+			changeflag(*line, &flag);
+		if (!flag && *line == '|')
 		{
 			line++;
+			if (*line == '\'' || *line == '"')
+				changeflag(*line, &flag);
 			while (*line && is_blank(*line))
 				line++;
-			if (*line == '\0' || *line == '|')
+			if (*line == '\0' || (!flag && *line == '|'))
 				return (1);
 		}
 		line++;
@@ -80,19 +87,24 @@ static int	check_pipe(const char *line)
 
 static int	check_redirections(const char *line)
 {
+	int	flag;
+
+	flag = 0;
 	while (*line)
 	{
-		if (*line == '>' && *(line + 1) == '<')
+		if (*line == '\'' || *line == '"')
+			changeflag(*line, &flag);
+		if (!flag && *line == '>' && *(line + 1) == '<')
 		{
 			ft_error("syntax error '><'\n");
 			return (1);
 		}
-		if (*line == '<' && *(line + 1) == '>')
+		if (!flag && *line == '<' && *(line + 1) == '>')
 		{
 			ft_error("syntax error '<>'\n");
 			return (1);
 		}
-		if (triple_pipe(line))
+		if (!flag && triple_pipe(line))
 		{
 			ft_error("syntax error 😉\n");
 			return (1);
@@ -102,19 +114,28 @@ static int	check_redirections(const char *line)
 	return (0);
 }
 
-int	check_errors(char *str)
+int	check_errors(char *str, t_minsh *msh)
 {
 	int	e;
 
 	e = 0;
-	e = check_pipe(str);
-	if (e)
-		return (e);
 	e = check_quotes(str);
 	if (e)
+	{
+		msh->exit_code = e;
 		return (e);
+	}
+	e = check_pipe(str);
+	if (e)
+	{
+		msh->exit_code = e;
+		return (e);
+	}
 	e = check_redirections(str);
 	if (e)
+	{
+		msh->exit_code = e;
 		return (e);
+	}
 	return (e);
 }

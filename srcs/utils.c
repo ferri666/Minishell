@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/08 13:35:50 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:48:26 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,13 @@ void	ft_error(char *str)
 	ft_putstr_fd(RESET, 2);
 	ft_putstr_fd(str, 2);
 }
+/*
+void	ft_error(char *str, t_minsh *msh, int code)
+{
+	msh->exit_code = code;
+	ft_putstr_fd(BRED, 2);
+	ft_putstr_fd("MShell: ", 2);
+	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(str, 2);
+}
+*/
