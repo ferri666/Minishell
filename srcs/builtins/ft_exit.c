@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:14:41 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/10 16:56:07 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 15:29:47 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_exit(t_minsh *msh, t_cmd *cmd)
 				msh->exit_code = 0;
 			msh->end_prog = 0;
 			if (msh->exit_code == 69)
-				printf(BWHT"Nice... 😏🍆\n");
+				printf(BWHT"'69' Nice... 😏🍆\n");
 			printf(BGRN"¡¡Bye, Bye!! 👋😊" BRED "❤️\e[0m\n");
 		}
 	}

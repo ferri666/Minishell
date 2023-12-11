@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/10 18:04:50 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:50:26 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	init(t_minsh *min, char **env)
 		return (1);
 	min->cmds = NULL;
 	min->end_prog = 1;
+	min->n_cmds = 1;
 	min->exit_code = 0;
 	min->exit_status = 0;
 	return (0);
@@ -89,7 +90,7 @@ int	main(int argc, char **argv, char **env)
 		if (input(linea))
 			continue ;
 		parse(linea, msh);
-		if (msh->cmds)
+		if (msh->n_cmds)
 		{
 			main_exec(msh);
 			free_cmds(msh->cmds, count_cmds(linea));

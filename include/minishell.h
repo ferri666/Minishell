@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/10 18:18:54 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 14:46:50 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_minsh
 	int		exit_code;
 	int		exit_status;
 	int		end_prog;
+	int		n_cmds;
 }	t_minsh;
 
 /*   parse.c   */
