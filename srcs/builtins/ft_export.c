@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 14:33:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/10 16:54:38 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:55:25 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	ft_export(t_minsh *msh, t_cmd *c)
 				ft_error("export: `");
 				ft_putstr_fd(c->args[i], 2);
 				ft_putendl_fd("': not a valid identifier", 2);
+				msh->exit_code = 1;
+				return ;
 			}
 			else if (in_env(msh->env, c->args[i]) >= 0)
 				msh->env[in_env(msh->env, c->args[i])] = ft_strdup(c->args[i]);
@@ -54,4 +56,5 @@ void	ft_export(t_minsh *msh, t_cmd *c)
 	}
 	else
 		list_exenv(msh->env);
+	msh->exit_code = 0;
 }

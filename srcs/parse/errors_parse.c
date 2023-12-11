@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/10 20:57:45 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:58:18 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,19 +122,19 @@ int	check_errors(char *str, t_minsh *msh)
 	e = check_quotes(str);
 	if (e)
 	{
-		msh->exit_code = e;
+		msh->exit_code = 258;
 		return (e);
 	}
 	e = check_pipe(str);
 	if (e)
 	{
-		msh->exit_code = e;
+		msh->exit_code = 258;
 		return (e);
 	}
 	e = check_redirections(str);
 	if (e)
 	{
-		msh->exit_code = e;
+		msh->exit_code = 258;
 		return (e);
 	}
 	return (e);

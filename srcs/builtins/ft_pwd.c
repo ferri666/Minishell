@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:19 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 17:40:30 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:49:46 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_pwd(void)
+void	ft_pwd(t_minsh *msh)
 {
 	char	*cwd;
 
@@ -22,4 +22,5 @@ void	ft_pwd(void)
 	getcwd(cwd, MAXPATHLEN);
 	printf("%s\n", cwd);
 	free(cwd);
+	msh->exit_code = 0;
 }

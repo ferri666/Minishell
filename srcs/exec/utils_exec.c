@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/10 17:23:09 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:50:20 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	is_builtin1(t_cmd *cmd)
 void	exec_builtin(t_minsh *msh, t_cmd *cmd)
 {
 	if (!ft_strncmp(cmd->command, "echo", 5))
-		ft_echo(cmd->args);
+		ft_echo(msh, cmd->args);
 	else if (!ft_strncmp(cmd->command, "cd", 3))
-		ft_cd(cmd->args);
+		ft_cd(cmd->args, msh);
 	else if (!ft_strncmp(cmd->command, "pwd", 4))
-		ft_pwd();
+		ft_pwd(msh);
 	else if (!ft_strncmp(cmd->command, "export", 7))
 		ft_export(msh, cmd);
 	else if (!ft_strncmp(cmd->command, "unset", 6))

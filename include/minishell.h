@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 14:46:50 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:48:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ int		is_valid_command_in_path(t_cmd *cmd, char **env);
 size_t	ft_strarrlen(char **arr);
 
 /*  builtins  */
-void	ft_echo(char **args);
+void	ft_echo(t_minsh *msh, char **args);
 void	ft_exit(t_minsh *msh, t_cmd *cmd);
-void	ft_pwd(void);
-void	ft_cd(char **args);
+void	ft_pwd(t_minsh *msh);
+void	ft_cd(char **args, t_minsh *msh);
 void	ft_env(t_minsh *msh);
 void	ft_export(t_minsh *msh, t_cmd *cmd);
 void	ft_unset(t_minsh *msh, t_cmd	*cmd);

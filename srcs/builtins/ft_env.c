@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 14:53:13 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/08 15:00:58 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:49:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	ft_env(t_minsh *msh)
 		if (ft_strchr(msh->env[i], '='))
 			printf("%s\n", msh->env[i]);
 	}
+	msh->exit_code = 0;
 }

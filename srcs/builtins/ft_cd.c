@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 14:42:47 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/08 13:35:54 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:43:49 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_cd(char **args)
+void	ft_cd(char **args, t_minsh *msh)
 {
 	char		*path;
 	char		*path2;
@@ -32,7 +32,10 @@ void	ft_cd(char **args)
 		{
 			ft_error("");
 			perror("cd");
+			msh->exit_code = 1;
 		}
+		else
+			msh->exit_code = 0;
 		free(path);
 		free(path2);
 		free(path3);

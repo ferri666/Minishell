@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:26:17 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 16:45:58 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:55:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	ft_unset(t_minsh *msh, t_cmd	*cmd)
 	if (!newenv)
 	{
 		ft_error("malloc error. Upsies!");
+		msh->exit_code = 1;
 		return ;
 	}
 	i = -1;
@@ -51,4 +52,5 @@ void	ft_unset(t_minsh *msh, t_cmd	*cmd)
 	}
 	ft_free_matrix((void **)msh->env);
 	msh->env = newenv;
+	msh->exit_code = 0;
 }

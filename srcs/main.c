@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 14:50:26 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:33:42 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	init(t_minsh *min, char **env)
 
 int	input(char *line)
 {
-	static char	*buf = NULL;
+	char	*buf;
 
 	if (line)
 		ft_bzero(line, 1000);

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/11 18:04:01 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:52:37 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,18 +169,20 @@ void main_exec(t_minsh *msh)
 	fd[1] = dup(1);
 	while (cmd && msh->end_prog)
 	{
-		cmd_count++;
 		if (cmd->input || cmd->output)
 			open_files(cmd);
 		if (is_builtin1(cmd))
 			exec_builtin(msh, cmd);
 		else
+		{
 			exec_cmd(cmd, msh);
+			cmd_count++;
+		}
 		cmd = cmd->next_cmd;
 	}
-	if (msh->end_prog != 0)
+	if (msh->end_prog != 0 && cmd_count)
 	{
-		while (cmd_count-- > 0)
+		while (cmd_count--)
 			waitpid(-1, &msh->exit_status, 0);
 		if (WIFEXITED(msh->exit_status))
 			msh->exit_code = WEXITSTATUS(msh->exit_status);
