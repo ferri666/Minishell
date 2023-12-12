@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <victor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 13:27:36 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/12 20:09:38 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	init(t_minsh *min, char **env)
 	return (0);
 }
 
+
 int	input(char *line)
 {
 	char	*buf;
@@ -64,20 +65,13 @@ int	input(char *line)
 	return (1);
 }
 
-void	re_sigint()
-{
-	printf("\n"); // to avoid the ^C on the prompt
-	rl_on_new_line(); // go to a newline
-	rl_replace_line("", 1); // delete the old text
-	rl_forced_update_display(); // force the new prompt
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	char	linea[1000];
 	t_minsh	*msh;
 	int		exit_s;
 
+	handle_signals();
 	if (argc != 1)
 		printf ("%s\n", argv[1]);
 	logo();
@@ -86,8 +80,6 @@ int	main(int argc, char **argv, char **env)
 		exit(1);
 	while (msh->end_prog)
 	{
-		signal(SIGINT, re_sigint);
-		signal(SIGQUIT, SIG_IGN); 
 		if (input(linea))
 			continue ;
 		if (parse(linea, msh))

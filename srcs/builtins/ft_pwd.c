@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 11:51:19 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/07 21:02:12 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:40:30 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 #include "libft.h"
 #include "colors.h"
 
-void ft_pwd(void)
+void	ft_pwd(void)
 {
-    char *pwd;
-    pwd = getcwd(NULL, 0);
-    printf("%s\n", pwd);
-    free(pwd);
-	exit(EXIT_SUCCESS);
+	char	*cwd;
+
+	cwd = ft_calloc(MAXPATHLEN, sizeof(char));
+	getcwd(cwd, MAXPATHLEN);
+	printf("%s\n", cwd);
+	free(cwd);
 }

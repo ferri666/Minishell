@@ -6,7 +6,7 @@
 /*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/07 21:21:28 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/12 20:14:22 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*child_process(t_cmd *cmd, int fd[2], t_minsh *msh)
 	child_redir(cmd, fd);
 	close(fd[STDIN_FILENO]);
 	if (is_builtin(cmd))
-		exec_builtin(cmd);
+		exec_builtin(msh, cmd);
 	else if (is_valid_command_in_path(cmd, msh->env))
 		execve(cmd->command, cmd->args, msh->env);
 	else if (access(cmd->command, F_OK) == 0)
@@ -59,7 +59,7 @@ void	*child_process(t_cmd *cmd, int fd[2], t_minsh *msh)
 		printf("minishell: %s: command not found\n", cmd->command);
 		exit(127);
 	}
-	//perror("execve");
+	perror("execve");
 	exit(1);
 }
 
@@ -67,6 +67,7 @@ void	exec_fork(t_cmd *cmd, int fd[2], t_minsh *msh)
 {
 	pid_t	pid;
 
+	handle_cmd_signals();
 	pid = fork();
 	if (pid < 0)
 	{
@@ -107,6 +108,8 @@ static void	*exec_cmd(t_cmd *cmd, t_minsh *msh)
 	return (NULL);
 }
 
+
+
 void open_files(t_cmd *cmd)
 {
 	int	i;
@@ -130,10 +133,10 @@ void open_files(t_cmd *cmd)
 	{
 		while (cmd->input[i])
 		{
-			if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
-				printf("guille y ampitilla");
-			else if (!ft_strncmp(cmd->in_redir_type[i], "<", 1))
+			if (!ft_strncmp(cmd->in_redir_type[i], "<", 1))
 				cmd->infile = open(cmd->input[i], O_RDONLY);
+			else if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
+				printf("hola");
 			if (cmd->infile == -1)
 				perror("open");
 			i++;
@@ -151,14 +154,16 @@ void main_exec(t_minsh *msh)
 	cmd = msh->cmds[0];
 	while (cmd)
 	{
-		if (ft_strncmp(cmd->command, "exit", 4) == 0)
-			ft_exit(msh, cmd);
 		cmd_count++;
 		if (cmd->input || cmd->output)
 			open_files(cmd);
-		exec_cmd(cmd, msh);
+		if (is_builtin(cmd))
+			exec_builtin(msh, cmd);
+		else
+			exec_cmd(cmd, msh);
 		cmd = cmd->next_cmd;
 	}
 	while (cmd_count-- > 0)
 		waitpid(-1, &exit_status, 0);
+	handle_signals();
 }

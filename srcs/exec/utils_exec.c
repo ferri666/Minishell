@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:41:19 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/07 21:18:46 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:21:02 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ int	is_builtin(t_cmd *cmd)
 		|| !ft_strncmp(cmd->command, "pwd", 3)
 		|| !ft_strncmp(cmd->command, "export", 6)
 		|| !ft_strncmp(cmd->command, "unset", 5)
-		|| !ft_strncmp(cmd->command, "env", 3))
+		|| !ft_strncmp(cmd->command, "env", 3)
+		|| !ft_strncmp(cmd->command, "exit", 4))
 			return (1);
 	return (0);
 }
 
-void	exec_builtin(t_cmd *cmd)
+void	exec_builtin(t_minsh *msh, t_cmd *cmd)
 {
 	if (!ft_strncmp(cmd->command, "echo", 4))
 		ft_echo(cmd->args);
@@ -40,6 +41,8 @@ void	exec_builtin(t_cmd *cmd)
 		printf("builtin\n");
 	else if (!ft_strncmp(cmd->command, "env", 3))
 		printf("builtin\n");
+	else if (!ft_strncmp(cmd->command, "exit", 4))
+		ft_exit(msh, cmd);
 }
 
 char	*get_env_var(char *var, char **env)

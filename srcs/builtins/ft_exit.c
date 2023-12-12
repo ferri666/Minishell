@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 11:14:41 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/07 20:59:35 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:40:21 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void	ft_exit(t_minsh *msh, t_cmd *cmd)
 	else
 		msh->exit_code = 0;
 	msh->end_prog = 0;
-	exit(EXIT_SUCCESS);
 }

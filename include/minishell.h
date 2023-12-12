@@ -6,7 +6,7 @@
 /*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/07 21:05:11 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/12 18:03:56 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/param.h>
+# include <sys/wait.h>
+# include <dirent.h>
+# include <signal.h>
 
 typedef struct s_cmd
 {
@@ -95,7 +98,9 @@ char	**env_cpy(char **env);
 
 /*exec */
 void	main_exec(t_minsh *msh);
-void	exec_builtin(t_cmd *cmd);
+void	exec_builtin(t_minsh *msh, t_cmd *cmd);
+void	execute_command(t_cmd *cmd, int infile, int outfile, char **env);
+void	execute_command2(t_cmd *cmd, int infile, int outfile);
 int		is_builtin(t_cmd *cmd);
 char	*get_env_var(char *var, char **env);
 int		is_valid_command_in_path(t_cmd *cmd, char **env);
@@ -106,6 +111,10 @@ void	ft_echo(char **args);
 void	ft_exit(t_minsh *msh, t_cmd *cmd);
 void	ft_pwd(void);
 void	ft_cd(char **args);
+
+/* signals */
+void handle_signals(void);
+void handle_cmd_signals(void);
 
 /*debug*/
 void	leaks(void);
