@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 18:33:42 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/12 16:37:58 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	init(t_minsh *min, char **env)
 	min->cmds = NULL;
 	min->end_prog = 1;
 	min->n_cmds = 1;
+	min->ndocs = 0;
 	min->exit_code = 0;
 	min->exit_status = 0;
 	return (0);

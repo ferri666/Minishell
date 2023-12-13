@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:01:36 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 15:28:55 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:55:47 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,29 @@ void	free_cmds(t_cmd **cmds, int ncmds)
 			free(cmds[i]->command);
 		}
 		if (cmds[i]->in_redir_type)
-			free(cmds[i]->in_redir_type);
+			ft_free_matrix((void **)cmds[i]->in_redir_type);
 		if (cmds[i]->out_redir_type)
-			free(cmds[i]->out_redir_type);
+			ft_free_matrix((void **)cmds[i]->out_redir_type);
 		free(cmds[i]);
 		i++;
 	}
 	free(cmds);
 }
-/*
-void flee(t_cmd *cmds, char *str)
+
+void	byedoc(t_minsh *msh)
 {
-	
+	int	i;
+
+	i = msh->ndocs;
+	msh->ndocs = 0;
+	while (i--)
+	{
+		if (msh->filedocs[i])
+		{
+			unlink(msh->filedocs[i]);
+			ft_bzero(msh->filedocs[i], ft_strlen(msh->filedocs[i]));
+			free(msh->filedocs[i]);
+		}
+	}
 }
-*/
+

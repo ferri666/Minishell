@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 18:48:34 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:50:57 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_minsh
 {
 	t_cmd	**cmds;
 	char	**env;
+	char	*filedocs[50];
+	int		ndocs;
 	int		exit_code;
 	int		exit_status;
 	int		end_prog;
@@ -72,6 +74,8 @@ char	*ex_arg(char *str, t_cmd *c, int i);
 
 /*   expand.c  */
 t_cmd	**expand_all(t_cmd **cmd, int n_cmds, t_minsh *msh);
+char	*replace(char *cmd, t_minsh *msh, size_t i);
+char	*find_env(t_minsh *msh, char *find, size_t len);
 
 /*   expand_utils.c  */
 int		n_expands(char *line);
@@ -120,6 +124,9 @@ void	ft_cd(char **args, t_minsh *msh);
 void	ft_env(t_minsh *msh);
 void	ft_export(t_minsh *msh, t_cmd *cmd);
 void	ft_unset(t_minsh *msh, t_cmd	*cmd);
+
+int		heredoc(char *endoffile, int *count, t_minsh *msh);
+void	byedoc(t_minsh *msh);
 
 /*debug*/
 void	leaks(void);

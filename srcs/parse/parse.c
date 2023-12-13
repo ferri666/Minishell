@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 14:51:00 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/12 10:42:23 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,10 @@ int	parse(char *str, t_minsh *msh)
 	else
 	{
 		msh->cmds = parsecmd(str, msh->n_cmds);
-		msh->cmds = expand_all(msh->cmds, msh->n_cmds, msh);
+		if (msh->cmds)
+			msh->cmds = expand_all(msh->cmds, msh->n_cmds, msh);
+		else
+			msh->n_cmds = 0;
 		return (0);
 	}
 }

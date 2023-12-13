@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/11 18:52:37 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:51:05 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ static void	*exec_cmd(t_cmd *cmd, t_minsh *msh)
 	return (NULL);
 }
 
-void open_files(t_cmd *cmd)
+void open_files(t_cmd *cmd, int *count, t_minsh *msh)
 {
 	int	i;
 
@@ -142,12 +142,13 @@ void open_files(t_cmd *cmd)
 	{
 		while (cmd->input[i])
 		{
-			if (!ft_strncmp(cmd->in_redir_type[i], "<", 1))
+			if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
+				cmd->infile = heredoc(cmd->input[i], count, msh);
+			else if (!ft_strncmp(cmd->in_redir_type[i], "<", 1))
 				cmd->infile = open(cmd->input[i], O_RDONLY);
-			else if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
-				printf("HEREDoc");
 			if (cmd->infile == -1)
 			{
+				ft_error("");
 				perror("open");
 			}
 			i++;
@@ -170,7 +171,7 @@ void main_exec(t_minsh *msh)
 	while (cmd && msh->end_prog)
 	{
 		if (cmd->input || cmd->output)
-			open_files(cmd);
+			open_files(cmd, &cmd_count, msh);
 		if (is_builtin1(cmd))
 			exec_builtin(msh, cmd);
 		else
@@ -187,6 +188,7 @@ void main_exec(t_minsh *msh)
 		if (WIFEXITED(msh->exit_status))
 			msh->exit_code = WEXITSTATUS(msh->exit_status);
 	}
+	byedoc(msh);
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
