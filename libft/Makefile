@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vpeinado <victor@student.42.fr>            +#+  +:+       +#+         #
+#    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/16 19:24:41 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/09 11:31:58 by vpeinado         ###   ########.fr        #
+#    Updated: 2023/09/13 18:24:17 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ OBJS			= $(SRCS:.c=.o)
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= 
+CFLAGS			= -Wall -Wextra -Werror
 
 $(NAME):		$(OBJS)
 				@ar rcs $(NAME) $(OBJS)

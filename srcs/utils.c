@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <victor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 11:27:47 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:48:26 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_blank(int c)
 
 void	changeflag(char c, int *flag)
 {
-	static	char	q = 0;
+	char static	q = 0;
 
 	if (*flag == 0)
 	{
@@ -56,6 +56,17 @@ size_t	ft_strarrlen(char **arr)
 void	ft_error(char *str)
 {
 	ft_putstr_fd(BRED, 2);
-	ft_putstr_fd(str, 2);
+	ft_putstr_fd("MShell: ", 2);
 	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(str, 2);
 }
+/*
+void	ft_error(char *str, t_minsh *msh, int code)
+{
+	msh->exit_code = code;
+	ft_putstr_fd(BRED, 2);
+	ft_putstr_fd("MShell: ", 2);
+	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(str, 2);
+}
+*/

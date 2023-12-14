@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <victor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 11:04:12 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 11:29:46 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/03/09 11:41:43 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_convert(int car)
+int	static	ft_convert(int car)
 {
 	if (car < 0)
 		car += 256;

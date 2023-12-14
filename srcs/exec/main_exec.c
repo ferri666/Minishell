@@ -6,7 +6,7 @@
 /*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/12 20:14:22 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/14 20:04:52 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,35 @@
 #include "libft.h"
 #include "colors.h"
 
-static void *child_redir(t_cmd *cmd, int fd[2])
+static void	*child_redir(t_cmd *cmd, int fd[2])
 {
 	if (cmd->infile != STDIN_FILENO)
 	{
-		if (dup2(cmd->infile, STDIN_FILENO) == -1) // Duplica el descriptor de archivo de entrada al descriptor de archivo estándar de entrada
+		if (dup2(cmd->infile, STDIN_FILENO) == -1)
 		{
+			ft_error("");
 			perror("dup2");
 			return (NULL);
 		}
-		close(cmd->infile); // Cierra el descriptor de archivo de entrada original
+		close(cmd->infile);
 	}
-	// Redirige la salida estándar si se especifica un descriptor de archivo de salida diferente a STDOUT_FILENO
 	if (cmd->outfile != STDOUT_FILENO)
 	{
-		if (dup2(cmd->outfile, STDOUT_FILENO) == -1) // Duplica el descriptor de archivo de salida al descriptor de archivo estándar de salida
+		if (dup2(cmd->outfile, STDOUT_FILENO) == -1)
 		{
+			ft_error("");
 			perror("dup2");
 			return (NULL);
 		}
-		close(cmd->outfile); // Cierra el descriptor de archivo de salida original
+		close(cmd->outfile);
 	}
 	else if (cmd->next_cmd && dup2(fd[STDOUT_FILENO], cmd->outfile) == -1)
 	{
+		ft_error("");
 		perror("dup2");
 		return (NULL);
 	}
-	close(fd[STDOUT_FILENO]); // Cierra el descriptor de archivo de salida de la tubería
+	close(fd[STDOUT_FILENO]);
 	return ("");
 }
 
@@ -48,31 +50,37 @@ void	*child_process(t_cmd *cmd, int fd[2], t_minsh *msh)
 {
 	child_redir(cmd, fd);
 	close(fd[STDIN_FILENO]);
-	if (is_builtin(cmd))
+	sig_dfl();
+	if (is_builtin2(cmd))
 		exec_builtin(msh, cmd);
-	else if (is_valid_command_in_path(cmd, msh->env))
-		execve(cmd->command, cmd->args, msh->env);
-	else if (access(cmd->command, F_OK) == 0)
-		execve(cmd->command, cmd->args, msh->env);
 	else
 	{
-		printf("minishell: %s: command not found\n", cmd->command);
-		exit(127);
+		if (is_valid_command_in_path(cmd, msh->env))
+			msh->exit_code = execve(cmd->command, cmd->args, msh->env);
+		else if (access(cmd->command, F_OK) == 0)
+			msh->exit_code = execve(cmd->command, cmd->args, msh->env);
+		else
+		{
+			printf(BRED"MShell: "CRESET"%s: command not found\n", cmd->command);
+			msh->exit_code = 127;
+			exit(127);
+		}
+		ft_error("");
+		perror(cmd->command);
 	}
-	perror("execve");
-	exit(1);
+	exit(msh->exit_code);
 }
 
 void	exec_fork(t_cmd *cmd, int fd[2], t_minsh *msh)
 {
 	pid_t	pid;
 
-	handle_cmd_signals();
 	pid = fork();
 	if (pid < 0)
 	{
 		close(fd[STDIN_FILENO]);
 		close(fd[STDOUT_FILENO]);
+		ft_error("");
 		perror("fork");
 	}
 	else if (!pid)
@@ -91,6 +99,7 @@ static void	*exec_cmd(t_cmd *cmd, t_minsh *msh)
 
 	if (pipe(fd) == -1)
 	{
+		ft_error("");
 		perror("pipe");
 		return (NULL);
 	}
@@ -108,9 +117,7 @@ static void	*exec_cmd(t_cmd *cmd, t_minsh *msh)
 	return (NULL);
 }
 
-
-
-void open_files(t_cmd *cmd)
+void open_files(t_cmd *cmd, int *count, t_minsh *msh)
 {
 	int	i;
 
@@ -124,7 +131,10 @@ void open_files(t_cmd *cmd)
 			else if (!ft_strncmp(cmd->out_redir_type[i], ">", 1))
 				cmd->outfile = open(cmd->output[i], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 			if (cmd->outfile == -1)
+			{
+				ft_error("");
 				perror("open");
+			}
 			i++;
 		}
 	}
@@ -133,12 +143,15 @@ void open_files(t_cmd *cmd)
 	{
 		while (cmd->input[i])
 		{
-			if (!ft_strncmp(cmd->in_redir_type[i], "<", 1))
+			if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
+				cmd->infile = heredoc(cmd->input[i], count, msh);
+			else if (!ft_strncmp(cmd->in_redir_type[i], "<", 1))
 				cmd->infile = open(cmd->input[i], O_RDONLY);
-			else if (!ft_strncmp(cmd->in_redir_type[i], "<<", 2))
-				printf("hola");
 			if (cmd->infile == -1)
+			{
+				ft_error("");
 				perror("open");
+			}
 			i++;
 		}
 	}
@@ -148,22 +161,31 @@ void main_exec(t_minsh *msh)
 {
 	t_cmd	*cmd;
 	int		cmd_count;
-	int		exit_status;
-
+	
 	cmd_count = 0;
+	if (!msh->cmds)
+		return ;
 	cmd = msh->cmds[0];
-	while (cmd)
+	while (cmd && msh->end_prog)
 	{
-		cmd_count++;
 		if (cmd->input || cmd->output)
-			open_files(cmd);
-		if (is_builtin(cmd))
+			open_files(cmd, &cmd_count, msh);
+		if (is_builtin1(cmd))
 			exec_builtin(msh, cmd);
 		else
+		{
+			sig_ign();
 			exec_cmd(cmd, msh);
+			cmd_count++;
+		}
 		cmd = cmd->next_cmd;
 	}
-	while (cmd_count-- > 0)
-		waitpid(-1, &exit_status, 0);
-	handle_signals();
+	if (msh->end_prog != 0 && cmd_count)
+	{
+		while (cmd_count--)
+			waitpid(-1, &msh->exit_status, 0);
+		if (WIFEXITED(msh->exit_status))
+			msh->exit_code = WEXITSTATUS(msh->exit_status);
+	}
+	byedoc(msh);
 }

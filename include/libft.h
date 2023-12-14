@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:51:54 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/01 13:25:12 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:46:39 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/uio.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <string.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif

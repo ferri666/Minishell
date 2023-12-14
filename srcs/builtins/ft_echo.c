@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 13:16:21 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/05 17:40:34 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/11 18:48:54 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_echo(char **args)
+void	ft_echo(t_minsh *msh, char **args)
 {
 	int	i;
 	int	flag;
@@ -34,4 +34,5 @@ void	ft_echo(char **args)
 	}
 	if (!flag)
 		printf("\n");
+	msh->exit_code = 0;
 }

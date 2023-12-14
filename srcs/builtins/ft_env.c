@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 11:51:19 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 18:49:46 by ffons-ti         ###   ########.fr       */
+/*   Created: 2023/12/08 14:53:13 by ffons-ti          #+#    #+#             */
+/*   Updated: 2023/12/11 18:49:24 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include "libft.h"
 #include "colors.h"
 
-void	ft_pwd(t_minsh *msh)
+void	ft_env(t_minsh *msh)
 {
-	char	*cwd;
+	size_t	i;
 
-	cwd = ft_calloc(MAXPATHLEN, sizeof(char));
-	getcwd(cwd, MAXPATHLEN);
-	printf("%s\n", cwd);
-	free(cwd);
+	i = -1;
+	while (msh->env[++i])
+	{
+		if (ft_strchr(msh->env[i], '='))
+			printf("%s\n", msh->env[i]);
+	}
 	msh->exit_code = 0;
 }

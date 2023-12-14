@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vpeinado <victor@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vpeinado <vpeinado@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:26:35 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 11:30:32 by vpeinado         ###   ########.fr       */
+/*   Updated: 2023/12/14 17:52:41 by vpeinado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_itoa(int n)
 	if (n < 0)
 		*res = '-';
 	len--;
-	while (len && n != 0)
+	while (len >= 0 && n != 0)
 	{
 		*(res + len) = '0' + absolut(n % 10);
 		n = (n / 10);
