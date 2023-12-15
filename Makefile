@@ -6,7 +6,7 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/12 16:08:16 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/12/13 16:38:47 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -g3 -fsanitize=address 
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) #-g3 -fsanitize=address 
 OFLAGS			= -lreadline
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
@@ -39,7 +39,7 @@ BUILT_OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(BUILT_FILES)))
 PARSE_SRC 		= 	$(addprefix $(PARSE_DIR), $(addsuffix .c, $(PARSE_FILES)))
 PARSE_OBJ 		= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(PARSE_FILES)))
 
-$(NAME)			:	$(OBJ) $(EXEC_OBJ) $(BUILT_OBJ) $(PARSE_OBJ) $(LIBFT)
+$(NAME)			:	$(LIBFT) $(OBJ) $(EXEC_OBJ) $(BUILT_OBJ) $(PARSE_OBJ)
 					@$(CC) $(CFLAGS) $(OFLAGS) $^ -o $@
 					@echo "Program Created"
 
