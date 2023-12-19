@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/13 15:50:57 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:06:14 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <dirent.h>
 
 typedef struct s_cmd
 {
@@ -45,6 +44,7 @@ typedef struct s_minsh
 {
 	t_cmd	**cmds;
 	char	**env;
+	char	*ipath;
 	char	*filedocs[50];
 	int		ndocs;
 	int		exit_code;
@@ -105,7 +105,7 @@ char	**commands(char *str, int ncmds);
 char	**env_cpy(char **env, size_t len);
 char	**env_add(char **env, char *str);
 int		in_env(char **env, char *str);
-size_t	equal(char *str);
+size_t	eq(char *str);
 
 /*exec */
 void	main_exec(t_minsh *msh);
@@ -127,8 +127,14 @@ void	ft_unset(t_minsh *msh, t_cmd	*cmd);
 
 int		heredoc(char *endoffile, int *count, t_minsh *msh);
 void	byedoc(t_minsh *msh);
+void	flee(t_minsh *msh);
 
-/*debug*/
-void	leaks(void);
+/* SIGNALS */
+
+void	sig_dfl(void);
+void	handle_signals(void);
+void	sig_ign(void);
+void	handle_sigint(int sig);
+
 
 #endif

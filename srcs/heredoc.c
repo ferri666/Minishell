@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 15:06:15 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/13 15:53:56 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:33:34 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@
 char	*file_doc(t_minsh *msh)
 {
 	char		*ret;
+	char		*i;
 
-	ret = ft_strjoin("/tmp/.heredoc", ft_itoa(msh->ndocs));
+	i = ft_itoa(msh->ndocs);
+	ret = ft_strjoin("/tmp/.heredoc", i);
 	msh->filedocs[msh->ndocs++] = ret;
+	free(i);
 	return (ret);
 }
 

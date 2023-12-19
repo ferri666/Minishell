@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/12 10:42:23 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/15 13:37:56 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ t_cmd	**parsecmd(char *str, int ncmds)
 		{
 			free_cmds(cmds, i + 1);
 			ft_free_matrix((void **)stcom);
-			ft_error("syntax error 😱\n");
-			leaks();
+			ft_error("parse: no command detected 😱\n");
 			return (NULL);
 		}
 		cmds[i]->command = ft_strdup(cmds[i]->args[0]);

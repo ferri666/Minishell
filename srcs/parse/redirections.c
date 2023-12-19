@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/05 15:16:36 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:25:27 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ char	*ex_arg(char *str, t_cmd *c, int i)
 
 	flag = 0;
 	c->args[i] = extract_put(str);
+	c->n_args++;
 	if (*str == '\'' || *str == '\"')
 		changeflag(*str++, &flag);
 	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))

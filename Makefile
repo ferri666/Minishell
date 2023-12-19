@@ -6,13 +6,13 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/13 16:38:47 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/12/19 11:09:30 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRC_FILES		= main exit env utils heredoc
+SRC_FILES		= main exit env utils heredoc signals
 EXEC_FILES		= main_exec utils_exec
 BUILT_FILES		= ft_cd ft_echo ft_exit ft_pwd ft_export ft_env ft_unset
 PARSE_FILES		= parse parse_utils errors_parse expand expand_utils split_args commands redirections
@@ -27,8 +27,8 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) #-g3 -fsanitize=address 
-OFLAGS			= -lreadline
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -I /Users/$(USER)/.brew/opt/readline/include/ -g3 -fsanitize=address 
+OFLAGS			= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ 			= 	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))

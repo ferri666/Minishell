@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/13 15:51:05 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/15 11:36:51 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	*child_process(t_cmd *cmd, int fd[2], t_minsh *msh)
 {
 	child_redir(cmd, fd);
 	close(fd[STDIN_FILENO]);
+	sig_dfl();
 	if (is_builtin2(cmd))
 		exec_builtin(msh, cmd);
 	else
@@ -176,6 +177,7 @@ void main_exec(t_minsh *msh)
 			exec_builtin(msh, cmd);
 		else
 		{
+			sig_ign();
 			exec_cmd(cmd, msh);
 			cmd_count++;
 		}

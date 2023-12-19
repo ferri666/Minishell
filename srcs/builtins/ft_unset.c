@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 16:26:17 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 18:55:54 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:09:14 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	insetenv(char *str, char **args, int n_args)
 	{
 		while (++i < n_args)
 		{
-			if (ft_strncmp(str, args[i], equal(str)) == 0)
+			if (ft_strncmp(str, args[i], eq(str)) == 0)
 				return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 14:50:22 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 18:20:45 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/15 12:25:42 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ t_cmd	*new_cmd(char *str)
 	new->outfile = STDOUT_FILENO;
 	new->next_cmd = NULL;
 	new->command = NULL;
-	new->n_args = ft_cw2(str, ' ');
+	new->n_args = 0;
 	return (new);
 }

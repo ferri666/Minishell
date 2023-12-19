@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:11:33 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/09 16:48:57 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/18 12:11:49 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 #include "libft.h"
 #include "colors.h"
 
-size_t	equal(char *str)
+/*
+Given a string, it calculates the lenght in size_t to get to the first
+equal sign ('='). If no '=' is found, it returns the total lenght of the string.
+*/
+size_t	eq(char *str)
 {
 	size_t	len;
 
@@ -56,7 +60,7 @@ int	in_env(char **env, char *str)
 	i = -1;
 	while (env[++i])
 	{
-		if (ft_strncmp(env[i], str, equal(str)) == 0)
+		if (ft_strncmp(env[i], str, eq(str)) == 0)
 			return (i);
 	}
 	return (-1);
