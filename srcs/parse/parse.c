@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 16:01:26 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/15 13:37:56 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:34:32 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "libft.h"
 #include "colors.h"
 
-int	extract(t_cmd *c, char *str)
+void	extract(t_cmd *c, char *str)
 {
 	int			i;
 	int			j;
@@ -36,9 +36,6 @@ int	extract(t_cmd *c, char *str)
 		while (*str && is_blank(*str))
 			str++;
 	}
-	if (k < 0)
-		return (0);
-	return (1);
 }
 
 t_cmd	**parsecmd(char *str, int ncmds)
@@ -53,14 +50,16 @@ t_cmd	**parsecmd(char *str, int ncmds)
 	while (++i < ncmds)
 	{
 		cmds[i] = new_cmd(stcom[i]);
-		if (!extract (cmds[i], stcom[i]))
+		if (!cmds[i])
 		{
 			free_cmds(cmds, i + 1);
 			ft_free_matrix((void **)stcom);
-			ft_error("parse: no command detected 😱\n");
+			ft_error("parse: command could not be made 😱\n");
 			return (NULL);
 		}
-		cmds[i]->command = ft_strdup(cmds[i]->args[0]);
+		extract (cmds[i], stcom[i]);
+		if (cmds[i]->args[0])
+			cmds[i]->command = ft_strdup(cmds[i]->args[0]);
 		if (i > 0)
 			cmds[i - 1]->next_cmd = cmds[i];
 	}

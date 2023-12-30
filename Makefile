@@ -6,7 +6,7 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/19 11:09:30 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/12/30 11:58:49 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ INCLUDE			= include/
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -I /Users/$(USER)/.brew/opt/readline/include/ -g3 -fsanitize=address 
+CFLAGS			= -Wall -Werror -Wextra -I$(INCLUDE) -I /Users/$(USER)/.brew/opt/readline/include/ #-g3 -fsanitize=address 
 OFLAGS			= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib
 
 SRC 			= 	$(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))

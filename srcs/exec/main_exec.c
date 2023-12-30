@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/15 11:36:51 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:50:57 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void main_exec(t_minsh *msh)
 	int		fd[2];
 
 	cmd_count = 0;
-	if (!msh->cmds)
+	if (!msh->cmds || !msh->cmds[0])
 		return ;
 	cmd = msh->cmds[0];
 	fd[0] = dup(0);
@@ -173,13 +173,16 @@ void main_exec(t_minsh *msh)
 	{
 		if (cmd->input || cmd->output)
 			open_files(cmd, &cmd_count, msh);
-		if (is_builtin1(cmd))
-			exec_builtin(msh, cmd);
-		else
+		if (cmd->command)
 		{
-			sig_ign();
-			exec_cmd(cmd, msh);
-			cmd_count++;
+			if (is_builtin1(cmd))
+				exec_builtin(msh, cmd);
+			else
+			{
+				sig_ign();
+				exec_cmd(cmd, msh);
+				cmd_count++;
+			}
 		}
 		cmd = cmd->next_cmd;
 	}

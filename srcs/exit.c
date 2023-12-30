@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:01:36 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/19 11:13:03 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:59:20 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	flee(t_minsh *msh)
 	byedoc(msh);
 	ft_free_matrix((void **)msh->env);
 	free(msh->ipath);
-	if (msh->cmds)
+	if (msh->n_cmds)
 		free_cmds(msh->cmds, msh->n_cmds);
 	code = msh->exit_code;
 	free(msh);

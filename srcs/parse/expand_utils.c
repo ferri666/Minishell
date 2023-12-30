@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:14:16 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/12 15:06:38 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:55:43 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	n_expands(char *line)
 
 	flag = 0;
 	n = 0;
-	while (*line)
+	while (line && *line)
 	{
 		if (*line == '\'')
 			changeflag(*line, &flag);

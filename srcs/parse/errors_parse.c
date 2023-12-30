@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 19:41:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/11 18:58:18 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 11:57:27 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@ static int	check_pipe_bis(const char *line)
 	int	flag;
 
 	flag = 0;
+	while (*line && is_blank(*line))
+		line++;
+	if (*line == '|')
+		return (1);
 	while (*line)
 	{
 		if (*line == '\'' || *line == '"')
@@ -69,17 +73,17 @@ static int	check_pipe(const char *line)
 		return (1);
 	if (line[0] == '|')
 	{
-		ft_error("syntax error near '|'\n");
+		ft_error("parse error near `|'\n");
 		return (1);
 	}
 	if (line[ft_strlen(line) - 1] == '|')
 	{
-		ft_error("syntax error near '|'\n");
+		ft_error("parse error near `|'\n");
 		return (1);
 	}
 	if (check_pipe_bis(line))
 	{
-		ft_error("syntax error near '|'\n");
+		ft_error("parse error near `|'\n");
 		return (1);
 	}
 	return (0);

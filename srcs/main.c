@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/19 11:14:46 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/19 12:31:42 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	input(char *line, t_minsh *msh)
 	if (buf == NULL)
 	{
 		printf(BGRN"¡¡Bye, Bye!! 👋😊" BRED "❤️\e[0m\n");
+		msh->exit_code = 1;
 		flee(msh);
 	}
 	if (ft_strlen(buf) > 1000)
@@ -100,6 +101,7 @@ int	main(int argc, char **argv, char **env)
 		parse(linea, msh);
 		main_exec(msh);
 		free_cmds(msh->cmds, msh->n_cmds);
+		msh->n_cmds = 0;
 	}
 	flee(msh);
 }

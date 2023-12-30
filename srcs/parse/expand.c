@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:55:08 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/12 15:14:16 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:57:03 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,8 @@ t_cmd	**expand_all(t_cmd **cmd, int n_cmds, t_minsh *msh)
 		j = -1;
 		while (cmd[i]->args[++j])
 			cmd[i]->args[j] = expand_this(cmd[i]->args[j], msh);
-		cmd[i]->command = expand_this(cmd[i]->command, msh);
+		if (cmd[i]->command)
+			cmd[i]->command = expand_this(cmd[i]->command, msh);
 	}
 	return (cmd);
 }
