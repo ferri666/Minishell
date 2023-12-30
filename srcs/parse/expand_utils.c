@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:14:16 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/29 17:55:43 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:38:11 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 #include "libft.h"
 #include "colors.h"
 
-char	*quolim(char *st, size_t len)
+char	*quolim(char *st, size_t len, size_t i)
 {
 	size_t			j;
-	size_t			i;
 	char			quo;
 	char			*sub_st[5];
 
-	i = 0;
 	while (i < len && *(st + i) != '\'' && *(st + i) != '\"')
 		i++;
 	sub_st[0] = ft_substr(st, 0, i);
@@ -37,7 +35,6 @@ char	*quolim(char *st, size_t len)
 	free (st);
 	st = ft_strdup(sub_st[4]);
 	free_this(sub_st);
-	i = 0;
 	return (st);
 }
 
@@ -50,9 +47,9 @@ int	n_expands(char *line)
 	n = 0;
 	while (line && *line)
 	{
-		if (*line == '\'')
+		if (*line == '\'' || *line == '\"')
 			changeflag(*line, &flag);
-		if (*line == '$' && (!flag || *(line + 1) == ' '))
+		if (*line == '$' && (flag < 2 || *(line + 1) == ' '))
 			n++;
 		line++;
 	}
@@ -79,12 +76,24 @@ int	n_quotes(char *line)
 	return (n);
 }
 
-char	*extract_env(char *env)
+size_t	end_quote(char *st, size_t start)
 {
-	while (*env != '=')
-		env++;
-	env++;
-	return (ft_strdup(env));
+	size_t	j;
+	int		flag;
+
+	j = 0;
+	flag = 0;
+	while (*(st + start + j))
+	{
+		if (*(st + start + j) == '\'' || *(st + start + j) == '\"')
+		{
+			changeflag(*(st + start + j), &flag);
+			if (flag == 0)
+				return (j);
+		}
+		j++;
+	}
+	return(j);
 }
 
 void	free_this(char *this[5])

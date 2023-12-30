@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/26 16:18:20 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/19 13:20:35 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 13:24:48 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ void	changeflag(char c, int *flag)
 
 	if (*flag == 0)
 	{
-		*flag = 1;
+		if (c == '\'')
+			*flag = 2;
+		else
+			*flag = 1;
 		q = c;
 	}
 	else if (c == q)

@@ -6,7 +6,7 @@
 #    By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/23 18:39:26 by ffons-ti          #+#    #+#              #
-#    Updated: 2023/12/30 11:58:49 by ffons-ti         ###   ########.fr        #
+#    Updated: 2023/12/30 14:41:13 by ffons-ti         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME			= minishell
 SRC_FILES		= main exit env utils heredoc signals
 EXEC_FILES		= main_exec utils_exec
 BUILT_FILES		= ft_cd ft_echo ft_exit ft_pwd ft_export ft_env ft_unset
-PARSE_FILES		= parse parse_utils errors_parse expand expand_utils split_args commands redirections
+PARSE_FILES		= parse parse_utils errors_parse expand expand_utils split_args commands extract
 SRC_DIR			= srcs/
 EXEC_DIR		= $(SRC_DIR)exec/
 BUILT_DIR		= $(SRC_DIR)builtins/

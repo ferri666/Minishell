@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:38:22 by vpeinado          #+#    #+#             */
-/*   Updated: 2023/12/30 11:50:57 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:44:03 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,8 +194,10 @@ void main_exec(t_minsh *msh)
 			msh->exit_code = WEXITSTATUS(msh->exit_status);
 	}
 	byedoc(msh);
+	/*
 	dup2(fd[0], 0);
 	dup2(fd[1], 1);
 	close(fd[0]);
 	close(fd[1]);
+	*/
 }

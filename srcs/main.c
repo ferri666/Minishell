@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:03:06 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/19 12:31:42 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:41:51 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,11 @@ int	main(int argc, char **argv, char **env)
 		handle_signals();
 		if (input(linea, msh))
 			continue ;
-		parse(linea, msh);
-		main_exec(msh);
-		free_cmds(msh->cmds, msh->n_cmds);
+		if (parse(linea, msh))
+		{
+			main_exec(msh);
+			free_cmds(msh->cmds, msh->n_cmds);
+		}
 		msh->n_cmds = 0;
 	}
 	flee(msh);

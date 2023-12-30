@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 18:41:04 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/29 17:53:05 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:30:19 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ char	*find_env(t_minsh *msh, char *find, size_t len);
 
 /*   expand_utils.c  */
 int		n_expands(char *line);
-char	*extract_env(char *env);
 int		n_quotes(char *line);
 void	free_this(char *this[5]);
-char	*quolim(char *st, size_t len);
+char	*quolim(char *st, size_t len, size_t i);
+size_t	end_quote(char *st, size_t start);
 
 /*  utils.c   */
 char	*spaces(char *frase);
@@ -106,6 +106,7 @@ char	**env_cpy(char **env, size_t len);
 char	**env_add(char **env, char *str);
 int		in_env(char **env, char *str);
 size_t	eq(char *str);
+char	*extract_env(char *env);
 
 /*exec */
 void	main_exec(t_minsh *msh);
@@ -135,6 +136,5 @@ void	sig_dfl(void);
 void	handle_signals(void);
 void	sig_ign(void);
 void	handle_sigint(int sig);
-
 
 #endif

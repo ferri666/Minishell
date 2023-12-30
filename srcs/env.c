@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 10:11:33 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/18 12:11:49 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:24:36 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,12 @@ char	**env_add(char **env, char *str)
 	newenv[len] = ft_strdup(str);
 	ft_free_matrix((void **)env);
 	return (newenv);
+}
+
+char	*extract_env(char *env)
+{
+	while (*env != '=')
+		env++;
+	env++;
+	return (ft_strdup(env));
 }

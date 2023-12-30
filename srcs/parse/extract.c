@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirections.c                                     :+:      :+:    :+:   */
+/*   extract.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 11:35:31 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/15 12:25:27 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 12:38:03 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	*ex_output(char *str, t_cmd *c, int i)
 		str++;
 	if (*str != '<' || *str != '>')
 		c->output[i] = extract_put(str);
+	else
+		ft_error("syntax error near unexpected token `>'");
 	if (*str == '\'' || *str == '\"')
 		changeflag(*str++, &flag);
 	while (*str && (flag || (*str != '<' && *str != '>' && *str != ' ')))

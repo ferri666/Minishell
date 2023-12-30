@@ -6,7 +6,7 @@
 /*   By: ffons-ti <ffons-ti@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:55:08 by ffons-ti          #+#    #+#             */
-/*   Updated: 2023/12/29 17:57:03 by ffons-ti         ###   ########.fr       */
+/*   Updated: 2023/12/30 14:38:58 by ffons-ti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@ char	*eliminate_quotes(char *st)
 {
 	char			*ret;
 	int				n_quo;
+	size_t			start;
+	size_t			end;
 
+	start = 0;
 	n_quo = n_quotes(st);
-	ret = st;
 	if (n_quo == 0)
 		return (st);
 	while (n_quo--)
 	{
-		ret = quolim(st, ft_strlen(ret));
+		end = end_quote(st, start);
+		ret = quolim(st, ft_strlen(st), start);
+		start = end - 1;
 		st = ret;
 	}
 	return (st);
@@ -58,8 +62,7 @@ char	*replace(char *cmd, t_minsh *msh, size_t i)
 	subs[0] = ft_substr(cmd, 0, i);
 	i++;
 	j = 0;
-	while (*(cmd + i + j) && *(cmd + i + j) != '$' && !is_blank(*(cmd + i + j))
-		&& !is_quote(*(cmd + i + j)))
+	while (*(cmd + i + j) && ft_isalnum(*(cmd + i + j)))
 		j++;
 	subs[1] = ft_substr(cmd, i, j);
 	if (ft_strlen(subs[1]) == 0)
@@ -89,10 +92,9 @@ char	*expand_this(char *str, t_minsh *msh)
 		return (eliminate_quotes(str));
 	while (n--)
 	{
-		while (*(str + i) && *(str + i) != '$'
-			&& (!flag || *(str + 1) == ' '))
+		while (*(str + i) && (*(str + i) != '$' || flag == 2))
 		{
-			if (*(str + i) == '\'')
+			if (*(str + i) == '\'' || *(str + i) == '\"')
 				changeflag(*(str + i), &flag);
 			i++;
 		}
